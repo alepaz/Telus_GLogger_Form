@@ -39,14 +39,6 @@ class App extends Component {
                         <Route path="/surveys/new" render={() => <SurveyNew />} />
                     </div>
                 </BrowserRouter>
-                <Box between={5}>
-                    <DisplayHeading>Pay your bills and monitor internet usage on the go</DisplayHeading>
-                    <Paragraph>Download the new and improved My Account app today.</Paragraph>
-
-                    <div>
-                    <Button>Download now</Button>
-                    </div>
-                </Box>
             </div>
         );
     }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Payments from './Payments';
+import { colorAccessibleGreen, colorTelusPurple } from '@tds/core-colours'
 
 class Header extends Component {
     renderContent() {
@@ -9,7 +10,7 @@ class Header extends Component {
             case null:
                 return;
             case false:
-                return <li><a href="/auth/google">Login With Google</a></li>;
+                return <li style={{ marginTop: '15px' }}><a href="/auth/google">Login With Google</a></li>;
             default:
                 return [
                     <li key="payment"><Payments /></li>,
@@ -25,13 +26,13 @@ class Header extends Component {
         //console.log(this.props);
         return (
             <nav>
-                <div className="nav-wrapper">
+                <div className="nav-wrapper" style={{ backgroundColor: colorTelusPurple }}>
                     <Link
                         to={ this.props.auth ? '/surveys' : '/' }
                         className="left brand-logo"
                         style={{ margin: '0 10px' }}
                     >
-                        Emaily
+                        Glogger Form
                     </Link>
                     <ul className="right">
                         {this.renderContent()}
