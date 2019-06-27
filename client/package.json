@@ -30,7 +30,7 @@
     "@tds/core-price-lockup": "^2.0.6",
     "@tds/core-radio": "^2.0.2",
     "@tds/core-responsive": "^1.2.1",
-    "@tds/core-select": "^3.0.2",
+    "@tds/core-select": "^2.0.21",
     "@tds/core-small": "^2.0.2",
     "@tds/core-spinner": "^2.2.1",
     "@tds/core-standalone-icon": "^1.1.0",

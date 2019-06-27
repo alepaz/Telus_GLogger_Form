@@ -12,11 +12,6 @@ import Landing from './Landing';
 import Dashboard from './Dashboard';
 import SurveyNew from './surveys/SurveyNew';
 import '@tds/core-css-reset/dist/index.css';
-import Box from '@tds/core-box';
-import Button from '@tds/core-button';
-import DisplayHeading from '@tds/core-display-heading';
-import Paragraph from '@tds/core-paragraph';
-
 
 class App extends Component {
     componentDidMount() {
