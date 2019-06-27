@@ -13,11 +13,7 @@ class Header extends Component {
                 return <li style={{ marginTop: '15px' }}><a href="/auth/google">Login With Google</a></li>;
             default:
                 return [
-                    <li key="payment"><Payments /></li>,
-                    <li key="3" style={{ margin: '0 10px' }}>
-                        Credits: {this.props.auth.credits}
-                    </li>,
-                    <li key="logout"><a href="/api/logout">Logout</a></li>
+                    <li style={{ marginTop: '15px' }} key="logout"><a href="/api/logout">Logout</a></li>
                 ];
         }
     }

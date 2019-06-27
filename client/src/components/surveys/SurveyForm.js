@@ -7,15 +7,19 @@ import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
 import validateEmails from '../../utils/validateEmails';
 import formFields from './formFields';
+import Select from '@tds/core-select'
 
 class SurveyForm extends Component {
 
     //helperFunctions
     renderFields() {
-        return _.map(formFields, ({ label, name }) => {
-            return <Field key={name} component={SurveyField} type="text" label={label} name={name} />
-        });
-    }
+
+
+        return (<> 
+                    <Field key="department" component={SurveyField} type="text" label="Department Title" name="Department" />
+                    <Field key="position" component={SurveyField} type="text" label="Position Title" name="position" />
+                </>);
+                }
 
     render() {
         return (
