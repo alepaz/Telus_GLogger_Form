@@ -15,16 +15,30 @@ class SurveyForm extends Component {
 
     //helperFunctions
     renderFields() {
-
-
         return (<>  
                     <Field name="department" component="select" className="browser-default">
                         <option value="" disabled defaultValue>Select a Department:</option>
                         <option value="TELUS Business Solutions">TELUS Business Solutions</option>
                         <option value="TELUS Business Solutions">TELUS Business Solutions</option>
                     </Field>
-                    <Field key="department" component={SurveyField} type="text" label="Department Title" name="Department" />
-                    <Field key="position" component={SurveyField} type="text" label="Position Title" name="position" />
+                    <Field key="position" component={SurveyField} type="text" label="Employee Position" name="position" />
+                    <Field name="site" component="select" className="browser-default">
+                        <option value="" disabled defaultValue>Select a Site:</option>
+                        <option value="India Temporal">India Temporal</option>
+                    </Field>
+                    <Field name="country" component="select" className="browser-default">
+                        <option value="" disabled defaultValue>Select a Country:</option>
+                        <option value="India">India</option>
+                    </Field>
+                    <Field name="supervisor" component="select" className="browser-default">
+                        <option value="" disabled defaultValue>Select a Supervisor (Optional):</option>
+                        <option value="Supervisor 1">Supervisor 1</option>
+                        <option value="Supervisor 2">Supervisor 2</option>
+                    </Field>
+                    <Field key="firstName" component={SurveyField} type="text" label="Employee First Name" name="firstName" />
+                    <Field key="seconName" component={SurveyField} type="text" label="Employee Second Name" name="secondName" />
+                    <Field key="lastName" component={SurveyField} type="text" label="Employee Last Name" name="lastName" />
+                    <Field key="email" component={SurveyField} type="email" label="Work Email" name="email" />
                 </>);
                 }
 
