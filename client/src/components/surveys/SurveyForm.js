@@ -5,9 +5,11 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
+import SurveySelect from './SurveySelect';
 import validateEmails from '../../utils/validateEmails';
 import formFields from './formFields';
-import Select from '@tds/core-select'
+import Select from '@tds/core-select';
+import Tooltip from '@tds/core-tooltip';
 
 class SurveyForm extends Component {
 
@@ -15,7 +17,12 @@ class SurveyForm extends Component {
     renderFields() {
 
 
-        return (<> 
+        return (<>  
+                    <Field name="department" component="select" className="browser-default">
+                        <option value="" disabled defaultValue>Select a Department:</option>
+                        <option value="TELUS Business Solutions">TELUS Business Solutions</option>
+                        <option value="TELUS Business Solutions">TELUS Business Solutions</option>
+                    </Field>
                     <Field key="department" component={SurveyField} type="text" label="Department Title" name="Department" />
                     <Field key="position" component={SurveyField} type="text" label="Position Title" name="position" />
                 </>);
