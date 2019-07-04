@@ -13,7 +13,9 @@ export default ({
     <div className="control">
       <div className={"select " + (touched ? (error ? "is-danger" : "is-success") : "")}>
         <select className="browser-default" {...input}>{children}</select>
-        {touched && (error && <p className="help is-danger">{error}</p>)}
+        <div className='red-text' style={{ marginBottom: '10px' }}>
+                {touched && error ? error : null}
+            </div>
       </div>
     </div>
   </div>

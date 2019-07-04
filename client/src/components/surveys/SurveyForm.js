@@ -11,28 +11,24 @@ import formFields from './formFields';
 import Select from '@tds/core-select';
 import Tooltip from '@tds/core-tooltip';
 
-const required = value => (value ? undefined : 'Required');
 
 class SurveyForm extends Component {
-
-
-    //helperFunctions
     renderFields() {
         return (<>  
-                    <Field name="department" component={SurveySelect} className="browser-default"  validate={[required]}>
+                    <Field name="department" component={SurveySelect} className="browser-default" >
                         <option value="" disabled defaultValue>Select a Department:</option>
                         <option value="TELUS Business Solutions">TELUS Business Solutions</option>
                     </Field>
                     <Field key="position" component={SurveyField} type="text" label="Employee Position" name="position" />
-                    <Field name="site" component="select" className="browser-default">
+                    <Field name="site" component={SurveySelect} className="browser-default">
                         <option value="" disabled defaultValue>Select a Site:</option>
                         <option value="India Temporal">India Temporal</option>
                     </Field>
-                    <Field name="country" component="select" className="browser-default">
+                    <Field name="country" component={SurveySelect} className="browser-default">
                         <option value="" disabled defaultValue>Select a Country:</option>
                         <option value="India">India</option>
                     </Field>
-                    <Field name="supervisor" component="select" className="browser-default">
+                    <Field name="supervisor" component={SurveySelect} className="browser-default">
                         <option value="" disabled defaultValue>Select a Supervisor (Optional):</option>
                         <option value="Supervisor 1">Supervisor 1</option>
                         <option value="Supervisor 2">Supervisor 2</option>
