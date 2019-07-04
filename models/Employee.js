@@ -8,7 +8,7 @@ const employeeSchema = new Schema({
     position: String,
     site: String,
     country: String,
-    supervisorID: [employeeSchema],
+    supervisorID: String,
     firstName: String,
     secondName: String,
     lastName: String,
@@ -18,4 +18,4 @@ const employeeSchema = new Schema({
     costCenterID: { type: String, default:"CC-999-VOXP" }
 });
 
-mongoose.model('surveys', employeeSchema);
+mongoose.model('employees', employeeSchema);

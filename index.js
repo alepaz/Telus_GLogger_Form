@@ -6,7 +6,7 @@ const passport = require('passport'); //We want to tell passport to handle cooki
 const keys = require('./config/keys');  //We require the file which is has the secret keys that are not commitment
 const bodyParser = require('body-parser');
 require('./models/User');   //Verify order of require statements
-require('./models/Survey');
+require('./models/Employee');
 require('./services/passport'); //If you are not exporting anything, you can just use a require
 
 //attempt to connect to mongodb

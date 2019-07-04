@@ -7,12 +7,11 @@ const requireCredits = require('../middlewares/requireCredits');
 const Mailer = require('../services/Mailer');
 const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 
-const Survey = mongoose.model('surveys');
+const Employee = mongoose.model('employees');
 
 module.exports = app => {
     app.get('/api/surveys', requireLogin, async (req, res) => {
-        const surveys = await Survey.find({ _user: req.user.id })
-            .select({ recipients: false });
+        const surveys = await Employee.find({ _user: req.user.id });
 
         res.send(surveys);
     });
@@ -54,28 +53,29 @@ module.exports = app => {
         res.send({});
     });
 
-    app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
-        const { title, subject, body, recipients } = req.body;
-
-        const survey = new Survey({
-            title,
-            subject,
-            body,
-            recipients: recipients.split(',').map(email => ({ email: email.trim() })),
-            _user: req.user.id,
-            dateSent: Date.now()
+    //app.post('/api/surveys', requireLogin, async (req, res) => {
+    app.post('/api/surveys', async (req, res) => {
+        const { department, position, site, country, supervisor, firstName, secondName, lastName, email } = req.body;
+        console.log(req.body);
+        const employee = new Employee({
+            employeeID: "91056658",
+            department,
+            costCenter: "CC-999-VOXP",
+            position,
+            site,
+            country,
+            supervisorID: supervisor,
+            firstName,
+            secondName,
+            lastName,
+            email
         });
 
-        //Great place to send an email
-        const mailer = new Mailer(survey, surveyTemplate(survey));
         try{
             //Every process is going to be paused until the await process is not complete
-            await mailer.send();
-            await survey.save();
-            req.user.credits -= 1;
-            const user = await req.user.save();
+            await employee.save();
             //Send update user
-            res.send(user);
+            res.send(employee);
         }catch(err){
             //Unprocessable entity, which means bad data
             res.status(422).send(err);
