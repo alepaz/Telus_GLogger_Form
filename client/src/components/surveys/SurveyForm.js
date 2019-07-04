@@ -11,6 +11,10 @@ import formFields from './formFields';
 import Select from '@tds/core-select';
 import Tooltip from '@tds/core-tooltip';
 
+const email = value =>
+  value && !/^[A-Z0-9._%+-]+@telusinternational.com$/i.test(value)
+    ? 'Invalid email address, must be @telusinternational.com'
+    : undefined ;
 
 class SurveyForm extends Component {
     renderFields() {
@@ -36,7 +40,7 @@ class SurveyForm extends Component {
                     <Field key="firstName" component={SurveyField} type="text" label="Employee First Name" name="firstName" />
                     <Field key="secondName" component={SurveyField} type="text" label="Employee Second Name" name="secondName" />
                     <Field key="lastName" component={SurveyField} type="text" label="Employee Last Name" name="lastName" />
-                    <Field key="email" component={SurveyField} type="email" label="Work Email" name="email" />
+                    <Field key="email" component={SurveyField} type="email" label="Work Email" name="email" validate={email} />
                 </>);
                 }
 
