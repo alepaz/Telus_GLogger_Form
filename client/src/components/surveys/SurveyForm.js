@@ -36,7 +36,7 @@ class SurveyForm extends Component {
                         <option value="Supervisor 2">Supervisor 2</option>
                     </Field>
                     <Field key="firstName" component={SurveyField} type="text" label="Employee First Name" name="firstName" />
-                    <Field key="seconName" component={SurveyField} type="text" label="Employee Second Name" name="secondName" />
+                    <Field key="secondName" component={SurveyField} type="text" label="Employee Second Name" name="secondName" />
                     <Field key="lastName" component={SurveyField} type="text" label="Employee Last Name" name="lastName" />
                     <Field key="email" component={SurveyField} type="email" label="Work Email" name="email" />
                 </>);
