@@ -11,14 +11,16 @@ import formFields from './formFields';
 import Select from '@tds/core-select';
 import Tooltip from '@tds/core-tooltip';
 
+const required = value => (value ? undefined : 'Required');
+
 class SurveyForm extends Component {
+
 
     //helperFunctions
     renderFields() {
         return (<>  
-                    <Field name="department" component="select" className="browser-default">
+                    <Field name="department" component={SurveySelect} className="browser-default"  validate={[required]}>
                         <option value="" disabled defaultValue>Select a Department:</option>
-                        <option value="TELUS Business Solutions">TELUS Business Solutions</option>
                         <option value="TELUS Business Solutions">TELUS Business Solutions</option>
                     </Field>
                     <Field key="position" component={SurveyField} type="text" label="Employee Position" name="position" />
