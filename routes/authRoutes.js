@@ -14,7 +14,7 @@ module.exports = (app) => {
         '/auth/google/callback',
         passport.authenticate('google'),      //Passport strategy -google oauth20- will handle the information received
         (req, res) => { //Where is going to be sent after the passport authenticate
-            res.redirect('/surveys');
+            res.redirect('/employees');
         }
     );
 

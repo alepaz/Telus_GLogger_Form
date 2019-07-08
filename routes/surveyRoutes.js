@@ -12,7 +12,7 @@ const Employee = mongoose.model('employees');
 
 module.exports = app => {
     app.get('/api/surveys', requireLogin, async (req, res) => {
-        const employees = await Employee.find().sort({x:1}).limit(10);
+        const employees = await Employee.find().sort({$natural:-1}).limit(10);
         res.send(employees);
     });
 

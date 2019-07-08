@@ -30,8 +30,8 @@ class App extends Component {
                         {/* exact={true} = exact */}
                         <Header />
                         <Route exact path="/" component={Landing} />
-                        <Route exact path="/surveys" component={Dashboard} />
-                        <Route path="/surveys/new" render={() => <SurveyNew />} />
+                        <Route exact path="/employees" component={Dashboard} />
+                        <Route path="/employees/new" render={() => <SurveyNew />} />
                     </div>
                 </BrowserRouter>
             </div>

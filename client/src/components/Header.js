@@ -13,6 +13,7 @@ class Header extends Component {
                 return <li style={{ marginTop: '15px' }}><a href="/auth/google">Login With Google</a></li>;
             default:
                 return [
+                    <li style={{ marginTop: '15px' }} key="logout"><a href="/employees/view">View Employees</a></li>,
                     <li style={{ marginTop: '15px' }} key="logout"><a href="/api/logout">Logout</a></li>
                 ];
         }
@@ -24,7 +25,7 @@ class Header extends Component {
             <nav>
                 <div className="nav-wrapper" style={{ backgroundColor: colorTelusPurple }}>
                     <Link
-                        to={ this.props.auth ? '/surveys' : '/' }
+                        to={ this.props.auth ? '/employees' : '/' }
                         className="left brand-logo"
                         style={{ margin: '0 10px' }}
                     >
