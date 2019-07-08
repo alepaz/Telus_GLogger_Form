@@ -7,6 +7,7 @@ const keys = require('./config/keys');  //We require the file which is has the s
 const bodyParser = require('body-parser');
 require('./models/User');   //Verify order of require statements
 require('./models/Employee');
+require('./models/Counter');
 require('./services/passport'); //If you are not exporting anything, you can just use a require
 
 //attempt to connect to mongodb
