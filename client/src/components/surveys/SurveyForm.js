@@ -8,8 +8,6 @@ import SurveyField from './SurveyField';
 import SurveySelect from './SurveySelect';
 import validateEmails from '../../utils/validateEmails';
 import formFields from './formFields';
-import Select from '@tds/core-select';
-import Tooltip from '@tds/core-tooltip';
 
 const email = value =>
   value && !/^[A-Z0-9._%+-]+@telusinternational.com$/i.test(value)

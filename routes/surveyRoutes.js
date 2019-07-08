@@ -6,8 +6,9 @@ const requireLogin = require('../middlewares/requireLogin');
 const requireCredits = require('../middlewares/requireCredits');
 const Mailer = require('../services/Mailer');
 const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
-
+const Counter = mongoose.model('counters');
 const Employee = mongoose.model('employees');
+
 
 module.exports = app => {
     app.get('/api/surveys', requireLogin, async (req, res) => {
@@ -18,6 +19,17 @@ module.exports = app => {
     app.get('/api/surveys/:surveyId/:choice', (req, res) => {
         res.send('Thanks for voting!');
     });
+
+    function getNextSequenceValue(sequenceName){
+
+        var sequenceDocument = Counter.findAndModify({
+           query:{_id: sequenceName },
+           update: {$inc:{sequence_value:1}},
+           new:true
+        });
+         
+        return sequenceDocument.sequence_value;
+     }
 
     app.post('/api/surveys/webhooks', (req, res) => {
 
@@ -55,9 +67,9 @@ module.exports = app => {
     //app.post('/api/surveys', requireLogin, async (req, res) => {
     app.post('/api/surveys', async (req, res) => {
         const { department, position, site, country, supervisor, firstName, secondName, lastName, email } = req.body;
-        console.log(req.body);
+        console.log(getNextSequenceValue("employeeID"));
         const employee = new Employee({
-            employeeID: "91056658",
+            employeeID: getNextSequenceValue("employeeID"),
             department,
             costCenter: "CC-999-VOXP",
             position,
