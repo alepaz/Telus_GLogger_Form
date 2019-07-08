@@ -20,14 +20,18 @@ module.exports = app => {
         res.send('Thanks for voting!');
     });
 
-    function getNextSequenceValue(sequenceName){
-
-        var sequenceDocument = Counter.findAndModify({
-           query:{_id: sequenceName },
-           update: {$inc:{sequence_value:1}},
-           new:true
-        });
-         
+    async function getNextSequenceValue(sequenceName){
+        //It's supoosed to be a increment of 1, but idk why it's trigger again in the console.log(doc)
+        const sequenceDocument = await Counter.findOneAndUpdate(
+            {_id: sequenceName },
+            {$inc:{sequence_value:0.5}},
+            {new: true},
+            (err, doc) => {
+                if (err) {
+                    console.log("Something wrong when updating data!");
+                }
+                console.log(doc);
+            });
         return sequenceDocument.sequence_value;
      }
 
@@ -67,28 +71,31 @@ module.exports = app => {
     //app.post('/api/surveys', requireLogin, async (req, res) => {
     app.post('/api/surveys', async (req, res) => {
         const { department, position, site, country, supervisor, firstName, secondName, lastName, email } = req.body;
-        console.log(getNextSequenceValue("employeeID"));
-        const employee = new Employee({
-            employeeID: getNextSequenceValue("employeeID"),
-            department,
-            costCenter: "CC-999-VOXP",
-            position,
-            site,
-            country,
-            supervisorID: supervisor,
-            firstName,
-            secondName,
-            lastName,
-            email
-        });
-
         try{
+
+            const fakeWorkdayID = await getNextSequenceValue("employeeID");
+        
+            const employee = new Employee({
+                employeeID: fakeWorkdayID,
+                department,
+                costCenter: "CC-999-VOXP",
+                position,
+                site,
+                country,
+                supervisorID: supervisor,
+                firstName,
+                secondName,
+                lastName,
+                email
+            });
+        
             //Every process is going to be paused until the await process is not complete
             await employee.save();
             //Send update user
             res.send(employee);
         }catch(err){
             //Unprocessable entity, which means bad data
+            console.log(err);
             res.status(422).send(err);
         }
     });
