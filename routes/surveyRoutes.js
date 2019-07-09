@@ -24,12 +24,33 @@ module.exports = app => {
     app.get('/api/employees/csv', requireLogin, async (req, res) => {
         const filename   = "employees.csv";
         const employees = await Employee.find().lean();
-        console.log(employees);
+        const employeesMaped = employees.map(x => {
+            return {
+                Employee_ID: x.employeeID,
+                Department: x.department,
+                'Cost Center': x.costCenter,
+                Position: x.position,
+                Site: x.site,
+                Country: x.country,
+                'Supervisor ID': x.supervisorID,
+                'First Name': x.firstName,
+                'Second Name': x.secondName,
+                'Last Name': x.lastName,
+                'Work Email': x.email,
+                IsSupervisor: x.isSupervisor,
+                Status: x.status,
+                'Cost Center Reference Id': x.costCenterID,
+                'Workers Functional Area': x.functionalArea
+            }
+        });
+        console.log(employeesMaped);
+        
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/csv');
         res.setHeader("Content-Disposition", 'attachment; filename='+filename);
-        res.csv(employees, true);
-        res.send('Thanks for voting!');
+        csv.separator = '|';
+        res.csv(employeesMaped, true);
+        res.send('Thanks for using this app!');
     });
 
     async function getNextSequenceValue(sequenceName){
