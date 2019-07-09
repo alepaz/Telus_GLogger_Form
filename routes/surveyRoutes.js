@@ -2,13 +2,13 @@ const _ = require('lodash');
 const Path = require('path-parser').default;
 const { URL } = require('url');
 const mongoose = require('mongoose');
+const csv = require('csv-express');
 const requireLogin = require('../middlewares/requireLogin');
 const requireCredits = require('../middlewares/requireCredits');
 const Mailer = require('../services/Mailer');
 const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const Counter = mongoose.model('counters');
 const Employee = mongoose.model('employees');
-
 
 module.exports = app => {
     app.get('/api/employees', requireLogin, async (req, res) => {
@@ -21,7 +21,14 @@ module.exports = app => {
         res.send(employees);
     });
 
-    app.get('/api/employees/:surveyId/:choice', (req, res) => {
+    app.get('/api/employees/csv', requireLogin, async (req, res) => {
+        const filename   = "employees.csv";
+        const employees = await Employee.find().lean();
+        console.log(employees);
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader("Content-Disposition", 'attachment; filename='+filename);
+        res.csv(employees, true);
         res.send('Thanks for voting!');
     });
 
