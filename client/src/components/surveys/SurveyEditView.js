@@ -15,8 +15,8 @@ class SurveyList extends Component {
                     <td>{employee.site}</td>
                     <td>{employee.employeeID}</td>
                     <td>{employee.position}</td>
-                    <td>{employee.department}</td>
-                    <td>{employee.email}</td>
+                    {/*<td>{employee.department}</td>*/}
+                    <td>{employee.email.replace(/telusinternational.com/, "...")}</td>
                     <td>
                     <button className="btn btn-primary">Edit</button>
                     </td>
@@ -34,15 +34,15 @@ class SurveyList extends Component {
             <h3 align="center">Employee List</h3>
             <table className="table table-striped" style={{ marginTop: 20 }}>
               <thead>
-                <tr>
-                  <th>Employee</th>
-                  <th>Site</th>
-                  <th>Employee ID</th>
-                  <th>Position</th>
-                  <th>Department</th>
-                  <th>Email</th>
-                  <th colSpan="2">Action</th>
-                </tr>
+                    <tr>
+                        <th>Employee ID</th>                    
+                        <th>Employee</th>
+                        <th>Site</th>
+                        <th>Position</th>
+                        {/*<th>Position</th>*/}
+                        <th>Email</th>
+                        <th colSpan="2">Action</th>
+                    </tr>
               </thead>
               <tbody>
               {this.renderSurveys()}
