@@ -11,6 +11,7 @@ import Header from './Header';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
 import SurveyNew from './surveys/SurveyNew';
+import SurveyEditView from './surveys/SurveyEditView';
 import '@tds/core-css-reset/dist/index.css';
 
 class App extends Component {
@@ -32,6 +33,7 @@ class App extends Component {
                         <Route exact path="/" component={Landing} />
                         <Route exact path="/employees" component={Dashboard} />
                         <Route path="/employees/new" render={() => <SurveyNew />} />
+                        <Route path="/employees/view" render={() => <SurveyEditView />} />
                     </div>
                 </BrowserRouter>
             </div>
