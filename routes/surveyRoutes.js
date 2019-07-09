@@ -111,7 +111,6 @@ module.exports = app => {
             const employee = new Employee({
                 employeeID: fakeWorkdayID,
                 department,
-                costCenter: "CC-999-VOXP",
                 position,
                 site,
                 country,
