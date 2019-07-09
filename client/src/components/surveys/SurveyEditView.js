@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSurveys } from '../../actions';
+import { fetchEmployees } from '../../actions';
 
 class SurveyList extends Component {
     componentDidMount() {
-        this.props.fetchSurveys();
+        this.props.fetchEmployees();
     }
 
     renderSurveys() {
@@ -57,4 +57,4 @@ function mapStateToProps({ surveys }) {
     return { surveys };
 }
 
-export default connect(mapStateToProps, { fetchSurveys })(SurveyList);
+export default connect(mapStateToProps, { fetchEmployees })(SurveyList);

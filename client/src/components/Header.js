@@ -13,7 +13,7 @@ class Header extends Component {
                 return <li style={{ marginTop: '15px' }}><a href="/auth/google">Login With Google</a></li>;
             default:
                 return [
-                    <li style={{ marginTop: '15px' }} key="logout"><a href="/employees/view">View Employees</a></li>,
+                    <li style={{ marginTop: '15px' }} key="manage"><a href="/employees/view">View Employees</a></li>,
                     <li style={{ marginTop: '15px' }} key="logout"><a href="/api/logout">Logout</a></li>
                 ];
         }

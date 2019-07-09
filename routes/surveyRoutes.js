@@ -11,12 +11,17 @@ const Employee = mongoose.model('employees');
 
 
 module.exports = app => {
-    app.get('/api/surveys', requireLogin, async (req, res) => {
+    app.get('/api/employees', requireLogin, async (req, res) => {
+        const employees = await Employee.find();
+        res.send(employees);
+    });
+
+    app.get('/api/employees/top', requireLogin, async (req, res) => {
         const employees = await Employee.find().sort({$natural:-1}).limit(10);
         res.send(employees);
     });
 
-    app.get('/api/surveys/:surveyId/:choice', (req, res) => {
+    app.get('/api/employees/:surveyId/:choice', (req, res) => {
         res.send('Thanks for voting!');
     });
 
@@ -35,9 +40,9 @@ module.exports = app => {
         return sequenceDocument.sequence_value;
      }
 
-    app.post('/api/surveys/webhooks', (req, res) => {
+    app.post('/api/employees/webhooks', (req, res) => {
 
-        const p = new Path('/api/surveys/:surveyId/:choice');
+        const p = new Path('/api/employees/:surveyId/:choice');
         //console.log(req.body);
         _.chain(req.body)
             .map(({ email, url }) => {
@@ -68,8 +73,8 @@ module.exports = app => {
         res.send({});
     });
 
-    //app.post('/api/surveys', requireLogin, async (req, res) => {
-    app.post('/api/surveys', async (req, res) => {
+    //app.post('/api/employees', requireLogin, async (req, res) => {
+    app.post('/api/employees', async (req, res) => {
         const { department, position, site, country, supervisor, firstName, secondName, lastName, email } = req.body;
         try{
 
