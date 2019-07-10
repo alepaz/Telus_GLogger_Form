@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchEmployees } from '../../actions';
+import Button from '@tds/core-button-link';
 
 class SurveyList extends Component {
     componentDidMount() {
@@ -18,10 +19,10 @@ class SurveyList extends Component {
                     {/*<td>{employee.department}</td>*/}
                     <td>{employee.email.replace(/telusinternational.com/, "...")}</td>
                     <td>
-                    <button className="btn btn-primary">Edit</button>
+                    <Button>Edit</Button>
                     </td>
                     <td>
-                    <button className="btn btn-danger">Delete</button>
+                    <Button>Delete</Button>
                     </td>
                 </tr>
             );
@@ -31,6 +32,8 @@ class SurveyList extends Component {
     render(){
         return(
             <div>
+                <a href="/api/employees/csv"><Button>Export CSV</Button></a>
+            <div></div>
             <h3 align="center">Employee List</h3>
             <table className="table table-striped" style={{ marginTop: 20 }}>
               <thead>
