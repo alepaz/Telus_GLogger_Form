@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
-import { fetchEmployees } from '../../actions';
+import { fetchEmployees, countEmployees } from '../../actions';
 import Button from '@tds/core-button-link';
 
 
@@ -53,8 +53,8 @@ class SurveyList extends Component {
     render(){
         return(
             <div>
-                <a href="/api/employees/csv"><Button>Export CSV</Button></a>
-            <div></div>
+                
+            <div><Button href="/api/employees/csv">Export CSV</Button></div>
             <h3 align="center">Employee List</h3>
 
             <div>
