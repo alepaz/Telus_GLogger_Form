@@ -33,6 +33,8 @@ class App extends Component {
                         <Route exact path="/" component={Landing} />
                         <Route exact path="/employees" component={Dashboard} />
                         <Route path="/employees/new" render={() => <SurveyNew />} />
+                        <Route path="/employees/edit/:id" render={() => <SurveyNew />} />
+                        <Route path="/employees/delete/:id" render={() => <SurveyNew />} />
                         <Route path="/employees/view" render={() => <SurveyEditView perPage={10} />} />
                     </div>
                 </BrowserRouter>

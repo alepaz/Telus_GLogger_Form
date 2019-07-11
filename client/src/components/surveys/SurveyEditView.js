@@ -47,10 +47,10 @@ class SurveyList extends Component {
                     {/*<td>{employee.department}</td>*/}
                     <td>{employee.email.replace(/telusinternational.com/, "...")}</td>
                     <td>
-                    <Button variant="secondary"  className="DottedBox" href={"/api/employees/edit/"+employee._id}>Edit</Button>
+                    <Button variant="secondary"  className="DottedBox" href={"/employees/edit/"+employee._id}>Edit</Button>
                     </td>
                     <td>
-                    <Button variant="secondary" className="DottedBox" href={"/api/employees/delete/"+employee._id}>Delete</Button>
+                    <Button variant="secondary" className="DottedBox" href={"/employees/delete/"+employee._id}>Delete</Button>
                     </td>
                 </tr>
             );
