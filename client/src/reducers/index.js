@@ -9,5 +9,5 @@ export default combineReducers({
     auth: authReducer,
     form: reduxForm,
     surveys: surveysReducer,
-    countEmployees: employeesTotalReducer
+    totalEmployees: employeesTotalReducer
 });

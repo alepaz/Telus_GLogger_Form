@@ -65,7 +65,7 @@ class SurveyList extends Component {
                 nextLabel={'next'}
                 breakLabel={'...'}
                 breakClassName={'break-me'}
-                pageCount={this.props.countEmployees/10}
+                pageCount={this.props.totalEmployees/10}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
                 onPageChange={this.handlePageClick}
@@ -96,10 +96,10 @@ class SurveyList extends Component {
     }
 }
 
-function mapStateToProps({ surveys, countEmployees }) {
+function mapStateToProps({ surveys, totalEmployees }) {
     console.log(surveys);
-    console.log(countEmployees);
-    return { surveys, countEmployees };
+    console.log(totalEmployees);
+    return { surveys, totalEmployees };
 }
 
 export default connect(mapStateToProps, { fetchEmployees, countEmployees })(SurveyList);
