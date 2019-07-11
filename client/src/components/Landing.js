@@ -12,7 +12,8 @@ const Landing = () => {
         <DisplayHeading>Register users in GLogger for a temporal instance through this application.</DisplayHeading>
 
         <div>
-        <Button href="/auth/google">Login with Google</Button>
+        <a href="/auth/google"><Button>Login with Google</Button></a>
+        
         </div>
         <br />
         <br />

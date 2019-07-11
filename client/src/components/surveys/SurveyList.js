@@ -13,7 +13,7 @@ class SurveyList extends Component {
                 <div className="card darken-1" key={survey._id}>
                     <div className="card-content text-white">
                         <span className="card-title">{survey.firstName} {survey.secondName} {survey.lastName}</span>
-                        <div class="card-content">
+                        <div className="card-content">
                             <p> <b style={{fontWeight: "bold"}}>Site: </b>
                                 {survey.site}
                             </p>
