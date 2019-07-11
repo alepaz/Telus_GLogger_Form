@@ -11,8 +11,9 @@ const Counter = mongoose.model('counters');
 const Employee = mongoose.model('employees');
 
 module.exports = app => {
-    app.get('/api/employees', requireLogin, async (req, res) => {
-        const employees = await Employee.find().skip().limit(10);
+    app.get('/api/employees/', requireLogin, async (req, res) => {
+        const offset = req.query.offset ? req.query.offset : 0;
+        const employees = await Employee.find().skip(offset).limit(10);
         res.send(employees);
     });
 
