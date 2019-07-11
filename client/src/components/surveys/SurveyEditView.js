@@ -32,7 +32,7 @@ class SurveyList extends Component {
         let offset = Math.ceil(selected * this.props.perPage);
     
         this.setState({ offset: offset }, () => {
-            this.props.fetchEmployees();
+            this.props.fetchEmployees(offset);
         });
       };
 

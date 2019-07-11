@@ -20,7 +20,8 @@ export const submitSurvey = (values, history) => async dispatch => {
     dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-export const fetchEmployees = () => async dispatch => {
+export const fetchEmployees = (offset) => async dispatch => {
+    console.log(offset);
     const res = await axios.get('/api/employees');
     dispatch({ type: FETCH_SURVEYS, payload: res.data });
 };
