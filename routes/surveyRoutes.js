@@ -12,8 +12,18 @@ const Employee = mongoose.model('employees');
 
 module.exports = app => {
     app.get('/api/employees', requireLogin, async (req, res) => {
-        const employees = await Employee.find();
+        const employees = await Employee.find().skip().limit(10);
         res.send(employees);
+    });
+
+    app.get('/api/employees/count', requireLogin, async (req, res) => {
+        const employees = await Employee.countDocuments({}, function (err, count) {
+            if (err) console.log(err);
+            console.log('employees', count);
+          });
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.send(employees.toString());
     });
 
     app.get('/api/employees/top', requireLogin, async (req, res) => {
