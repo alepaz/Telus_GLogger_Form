@@ -11,7 +11,9 @@ import Header from './Header';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
 import SurveyNew from './surveys/SurveyNew';
-import SurveyEditView from './surveys/SurveyEditView';
+import SurveyEdit from './surveys/SurveyEdit';
+import SurveyDelete from './surveys/SurveyDelete';
+import SurveyManage from './surveys/SurveyEditView';
 import '@tds/core-css-reset/dist/index.css';
 
 class App extends Component {
@@ -33,9 +35,9 @@ class App extends Component {
                         <Route exact path="/" component={Landing} />
                         <Route exact path="/employees" component={Dashboard} />
                         <Route path="/employees/new" render={() => <SurveyNew />} />
-                        <Route path="/employees/edit/:id" render={() => <SurveyNew />} />
-                        <Route path="/employees/delete/:id" render={() => <SurveyNew />} />
-                        <Route path="/employees/view" render={() => <SurveyEditView perPage={10} />} />
+                        <Route path="/employees/edit/:id" render={() => <SurveyEdit />} />
+                        <Route path="/employees/delete/:id" render={() => <SurveyDelete />} />
+                        <Route path="/employees/view" render={() => <SurveyManage perPage={10} />} />
                     </div>
                 </BrowserRouter>
             </div>
