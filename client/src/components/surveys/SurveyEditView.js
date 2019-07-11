@@ -32,7 +32,7 @@ class SurveyList extends Component {
       };
 
     renderSurveys() {
-        return this.props.surveys.reverse().map(employee => {
+        return this.props.employees.reverse().map(employee => {
             return(
                 <tr key={employee._id}>
                     <td>{employee.firstName} {employee.lastName}</td>
@@ -96,10 +96,8 @@ class SurveyList extends Component {
     }
 }
 
-function mapStateToProps({ surveys, totalEmployees }) {
-    console.log(surveys);
-    console.log(totalEmployees);
-    return { surveys, totalEmployees };
+function mapStateToProps({ employees, totalEmployees }) {
+    return { employees, totalEmployees };
 }
 
 export default connect(mapStateToProps, { fetchEmployees, countEmployees })(SurveyList);
