@@ -1,12 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReactPaginate from 'react-paginate';
 import { fetchEmployees } from '../../actions';
 import Button from '@tds/core-button-link';
 
+
 class SurveyList extends Component {
+
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+          data: [],
+          offset: 0,
+        };
+      }
+
     componentDidMount() {
         this.props.fetchEmployees();
     }
+
+    handlePageClick = data => {
+        let selected = data.selected;
+        let offset = Math.ceil(selected * this.props.perPage);
+    
+        this.setState({ offset: offset }, () => {
+            this.props.fetchEmployees();
+        });
+      };
 
     renderSurveys() {
         return this.props.surveys.reverse().map(employee => {
@@ -35,6 +56,23 @@ class SurveyList extends Component {
                 <a href="/api/employees/csv"><Button>Export CSV</Button></a>
             <div></div>
             <h3 align="center">Employee List</h3>
+
+            <div>
+            <ReactPaginate
+                previousLabel={'previous'}
+                nextLabel={'next'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={this.props.surveys.length/10}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={'pagination'}
+                subContainerClassName={'pages pagination'}
+                activeClassName={'active'}
+                />
+            </div>
+
             <table className="table table-striped" style={{ marginTop: 20 }}>
               <thead>
                     <tr>
