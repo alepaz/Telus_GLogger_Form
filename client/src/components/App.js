@@ -22,7 +22,7 @@ class App extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container" >
                 <BrowserRouter>
                     {/* Inside BrowserRouter we display probably routes or routes to visit, and expect one child */}
                     <div>
@@ -33,7 +33,7 @@ class App extends Component {
                         <Route exact path="/" component={Landing} />
                         <Route exact path="/employees" component={Dashboard} />
                         <Route path="/employees/new" render={() => <SurveyNew />} />
-                        <Route path="/employees/view" render={() => <SurveyEditView />} />
+                        <Route path="/employees/view" render={() => <SurveyEditView perPage={10} />} />
                     </div>
                 </BrowserRouter>
             </div>

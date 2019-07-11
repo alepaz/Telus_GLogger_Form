@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
+import PropTypes from 'prop-types';
 import { fetchEmployees, countEmployees } from '../../actions';
 import Button from '@tds/core-button-link';
-
+import { colorAccessibleGreen, colorTelusPurple } from '@tds/core-colours'
 
 class SurveyList extends Component {
+
+    static propTypes = {
+        perPage: PropTypes.number.isRequired,
+      };
 
     constructor(props) {
         super(props);
@@ -59,22 +64,6 @@ class SurveyList extends Component {
             <div><Button href="/api/employees/csv">Export CSV</Button></div>
             <h3 align="center">Employee List</h3>
 
-            <div>
-            <ReactPaginate
-                previousLabel={'previous'}
-                nextLabel={'next'}
-                breakLabel={'...'}
-                breakClassName={'break-me'}
-                pageCount={this.props.totalEmployees/10}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={this.handlePageClick}
-                containerClassName={'pagination'}
-                subContainerClassName={'pages pagination'}
-                activeClassName={'active'}
-                />
-            </div>
-
             <table className="table table-striped" style={{ marginTop: 20 }}>
               <thead>
                     <tr>
@@ -91,6 +80,21 @@ class SurveyList extends Component {
               {this.renderSurveys()}
               </tbody>
             </table>
+            <div>
+            <ReactPaginate
+                previousLabel={'previous'}
+                nextLabel={'next'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={this.props.totalEmployees/10}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={this.handlePageClick}
+                containerClassName={'pagination'}
+                subContainerClassName={'pages pagination'}
+                activeClassName={'active'}
+                />
+          </div>
           </div>
         );
     }
