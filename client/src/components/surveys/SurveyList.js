@@ -8,7 +8,7 @@ class SurveyList extends Component {
     }
 
     renderSurveys() {
-        return this.props.surveys.reverse().map(survey => {
+        return this.props.employees.reverse().map(survey => {
             return(
                 <div className="card darken-1" key={survey._id}>
                     <div className="card-content text-white">
@@ -48,8 +48,8 @@ class SurveyList extends Component {
     }
 }
 
-function mapStateToProps({ surveys }) {
-    return { surveys };
+function mapStateToProps({ employees }) {
+    return { employees };
 }
 
 export default connect(mapStateToProps, { fetchTopEmployees })(SurveyList);
