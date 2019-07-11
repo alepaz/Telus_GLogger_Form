@@ -18,6 +18,8 @@ class SurveyList extends Component {
 
     componentDidMount() {
         this.props.fetchEmployees();
+        this.props.countEmployees();
+        
     }
 
     handlePageClick = data => {
@@ -98,4 +100,4 @@ function mapStateToProps({ surveys }) {
     return { surveys };
 }
 
-export default connect(mapStateToProps, { fetchEmployees })(SurveyList);
+export default connect(mapStateToProps, { fetchEmployees, countEmployees })(SurveyList);
