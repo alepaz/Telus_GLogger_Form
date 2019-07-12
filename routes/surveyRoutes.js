@@ -17,6 +17,12 @@ module.exports = app => {
         res.send(employees);
     });
 
+    app.get('/api/employees/:id', requireLogin, async (req, res) => {
+        const id = req.params.id ? req.params.id : 0;
+        const employees = await Employee.find({_id: id});
+        res.send(employees);
+    });
+
     app.get('/api/employees/count', requireLogin, async (req, res) => {
         const employees = await Employee.countDocuments({}, function (err, count) {
             if (err) console.log(err);
