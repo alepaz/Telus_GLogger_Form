@@ -20,8 +20,10 @@ class SurveyNew extends Component {
     }
 
     render() {
+        console.log(this.props.id);
         return (
             <div>
+                <div>{this.props.id}</div>
                 {this.renderContent()}
             </div>
         );

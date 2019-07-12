@@ -35,8 +35,8 @@ class App extends Component {
                         <Route exact path="/" component={Landing} />
                         <Route exact path="/employees" component={Dashboard} />
                         <Route path="/employees/new" render={() => <SurveyNew />} />
-                        <Route path="/employees/edit/:id" render={() => <SurveyEdit />} />
-                        <Route path="/employees/delete/:id" render={() => <SurveyDelete />} />
+                        <Route path="/employees/edit/:id" render={(props) => <SurveyEdit  {...props.match.params} />} />
+                        <Route path="/employees/delete/:id" render={(props) => <SurveyDelete {...props.match.params} />} />
                         <Route path="/employees/view" render={() => <SurveyManage perPage={10} />} />
                     </div>
                 </BrowserRouter>
