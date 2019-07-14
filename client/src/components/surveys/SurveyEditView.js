@@ -19,7 +19,7 @@ class SurveyList extends Component {
           data: [],
           offset: 0,
         };
-      }
+    }
 
     componentDidMount() {
         this.props.fetchEmployees();

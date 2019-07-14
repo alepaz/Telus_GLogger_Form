@@ -7,10 +7,21 @@ import SurveyForm from './SurveyForm';
 import SurveyFormReview from './SurveyFormReview';
 
 class SurveyEdit extends Component {
-    state = { showFormReview: false };
+
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+            id: '',
+            showFormReview: false
+        };
+    }
 
     componentDidMount(){
         this.props.fetchEmployee();
+        console.log(this.props.id);
+        console.log(this.props.employee);
+        const id = this.props.id;
     }
 
     renderContent() {
@@ -26,7 +37,8 @@ class SurveyEdit extends Component {
     }
 
     render() {
-        console.log(this.props.id);
+        console.log(this.props.employee);
+        // console.log(this.props.id);
         return (
             <div>
                 <div>{this.props.id}</div>
@@ -36,8 +48,8 @@ class SurveyEdit extends Component {
     }
 }
 
-function mapStateToProps({ fetchEmployee }) {
-    return { fetchEmployee };
+function mapStateToProps({ employee }) {
+    return { employee };
 }
 
 export default connect(mapStateToProps, { fetchEmployee })(reduxForm({
