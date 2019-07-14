@@ -13,15 +13,16 @@ class SurveyEdit extends Component {
     
         this.state = {
             id: '',
-            showFormReview: false
+            showFormReview: false,
+            employee: {}
         };
     }
 
     componentDidMount(){
-        this.props.fetchEmployee();
-        console.log(this.props.id);
-        console.log(this.props.employee);
         const id = this.props.id;
+        this.setState({ }, () => {
+            this.props.fetchEmployee(id);
+        });
     }
 
     renderContent() {
@@ -37,8 +38,8 @@ class SurveyEdit extends Component {
     }
 
     render() {
+        
         console.log(this.props.employee);
-        // console.log(this.props.id);
         return (
             <div>
                 <div>{this.props.id}</div>
