@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_SURVEYS, COUNT_EMPLOYEES } from './types';
+import { FETCH_USER, FETCH_SURVEYS, COUNT_EMPLOYEES, FETCH_EMPLOYEE } from './types';
 
 //Action creator
 export const fetchUser = () =>  async (dispatch) => {
@@ -38,4 +38,9 @@ export const countEmployees = () => async dispatch => {
 export const fetchTopEmployees = () => async dispatch => {
     const res = await axios.get('/api/employees/top');
     dispatch({ type: FETCH_SURVEYS, payload: res.data });
+};
+
+export const fetchEmployee = (id) => async dispatch => {
+    const res = await axios.get('/api/employees/'+id);
+    dispatch({ type: FETCH_EMPLOYEE, payload: res.data });
 };

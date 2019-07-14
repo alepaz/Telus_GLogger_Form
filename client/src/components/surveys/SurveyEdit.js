@@ -1,11 +1,17 @@
 //SurveyNew shows SurveyForm and SurveyFormReview
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import SurveyForm from './SurveyForm';
 import SurveyFormReview from './SurveyFormReview';
+import { fetchEmployee } from '../../actions';
 
-class SurveyNew extends Component {
+class SurveyEdit extends Component {
     state = { showFormReview: false };
+
+    componentDidMount(){
+        this.props.fetchEmployee();
+    }
 
     renderContent() {
         if(this.state.showFormReview){
@@ -30,6 +36,10 @@ class SurveyNew extends Component {
     }
 }
 
-export default reduxForm({
+function mapStateToProps({ fetchEmployee }) {
+    return { fetchEmployee };
+}
+
+export default connect(mapStateToProps)(reduxForm({
     form: 'surveyForm'
-})(SurveyNew);
+})(SurveyEdit));
