@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { fetchEmployee } from '../../actions';
 import SurveyForm from './SurveyForm';
 import SurveyFormReview from './SurveyFormReview';
-import { fetchEmployee } from '../../actions';
 
 class SurveyEdit extends Component {
     state = { showFormReview: false };
@@ -40,6 +40,6 @@ function mapStateToProps({ fetchEmployee }) {
     return { fetchEmployee };
 }
 
-export default connect(mapStateToProps)(reduxForm({
+export default connect(mapStateToProps, { fetchEmployee })(reduxForm({
     form: 'surveyForm'
 })(SurveyEdit));
