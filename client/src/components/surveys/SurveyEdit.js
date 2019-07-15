@@ -25,7 +25,7 @@ class SurveyEdit extends Component {
         });
     }
 
-    renderContent() {
+    renderContent(employee) {
         if(this.state.showFormReview){
             return <SurveyFormReview 
                 onCancel={() => this.setState({ showFormReview: false })}
@@ -33,17 +33,16 @@ class SurveyEdit extends Component {
         }
 
         return <SurveyForm 
+            employee={employee}
             onSurveySubmit={() => this.setState({ showFormReview: true })} 
         />;
     }
 
     render() {
-        
-        console.log(this.props.employee);
         return (
             <div>
-                <div>{this.props.id}</div>
-                {this.renderContent()}
+                {/* <div>{this.props.id}</div> */}
+                {this.renderContent(this.props.employee)}
             </div>
         );
     }

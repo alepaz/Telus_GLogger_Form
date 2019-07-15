@@ -4,8 +4,10 @@ import React, { Component } from 'react';
 //Redux form has access to the redux store
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import SurveyField from './SurveyField';
 import SurveySelect from './SurveySelect';
+import { fetchEmployee } from '../../actions';
 import validateEmails from '../../utils/validateEmails';
 import formFields from './formFields';
 
@@ -15,7 +17,29 @@ const email = value =>
     : undefined ;
 
 class SurveyForm extends Component {
-    renderFields() {
+
+    constructor(props) {
+        super(props);
+        console.log(props.employee[0]);
+        this.state = {
+            employee: {}
+        };
+    }
+
+    componentDidMount(){
+        // const employee = this.props.employee[0] ? this.props.employee[0]: null ;
+        // this.props.initialize({ position: 'test' });
+        // console.log(this.props.employee[0]);
+        // this.setState({employee: employee });
+    }
+
+    renderFields(employee) {
+        if(employee){
+            this.props.initialize({ position: employee.position, department: employee.department,
+            site: employee.site, country: employee.country, supervisor: employee.supervisorID,
+            firstName: employee.firstName , secondName: employee.secondName, lastName: employee.lastName,
+            email: employee.email });
+        }
         return (<>  
                     <Field name="department" component={SurveySelect} className="browser-default" >
                         <option value="" disabled defaultValue>Select a Department:</option>
@@ -43,10 +67,11 @@ class SurveyForm extends Component {
                 }
 
     render() {
+        const employee = this.props.employee[0] ? this.props.employee[0] : false;
         return (
             <div>
                 <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
-                    {this.renderFields()}
+                    {this.renderFields(employee)}
                     <Link to="/employees" className="red btn-flat white-text">
                         Cancel
                     </Link>
@@ -75,8 +100,22 @@ function validate(values) {
     return errors;
 }
 
-export default reduxForm({
+function mapStateToProps({ employee }) {
+    return { employee };
+}
+
+// export default connect(state => ({
+//     initialValues: {
+//       position: 'some value here'
+//     } 
+//   }))(reduxForm({
+//     validate,
+//     form: 'surveyForm',
+//     destroyOnUnmount: false
+// })(SurveyForm));
+
+export default connect(mapStateToProps, { fetchEmployee })(reduxForm({
     validate,
     form: 'surveyForm',
     destroyOnUnmount: false
-})(SurveyForm);
+})(SurveyForm));
