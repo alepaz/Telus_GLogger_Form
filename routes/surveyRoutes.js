@@ -148,4 +148,36 @@ module.exports = app => {
             res.status(422).send(err);
         }
     });
+
+    app.put('/api/employees', async (req, res) => {
+        const { department, position, site, country, supervisor, firstName, secondName, lastName, email, id } = req.body;
+        try{        
+            const employee = new Employee({
+                employeeID: fakeWorkdayID,
+                department,
+                position,
+                site,
+                country,
+                supervisorID: supervisor,
+                firstName,
+                secondName,
+                lastName,
+                email
+            });
+
+            const filter = { _id: id };
+        
+            //Every process is going to be paused until the await process is not complete
+            await employee.findOneAndUpdate(filter, employee, function(err, doc){
+                if (err) return res.send(500, { error: err });
+                return res.send("succesfully saved");
+            });
+            //Send update user
+            res.send(employee);
+        }catch(err){
+            //Unprocessable entity, which means bad data
+            console.log(err);
+            res.status(422).send(err);
+        }
+    });
 };

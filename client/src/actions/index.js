@@ -15,7 +15,8 @@ export const handleToken = (token) => async (dispatch) => {
 };
 
 export const submitSurvey = (values, history) => async dispatch => {
-    const res = await axios.post('/api/employees', values);
+    //If object includes a key id, is an update
+    const res = values.hasOwnProperty("id") ? await axios.put('/api/employees', values): await axios.post('/api/employees', values);
     history.push('/employees');
     dispatch({ type: FETCH_USER, payload: res.data });
 };

@@ -116,5 +116,6 @@ function mapStateToProps({ employee }) {
 export default connect(mapStateToProps, { fetchEmployee })(reduxForm({
     validate,
     form: 'surveyForm',
-    destroyOnUnmount: false
+    destroyOnUnmount: false,
+    enableReinitialize : true
 })(SurveyForm));
