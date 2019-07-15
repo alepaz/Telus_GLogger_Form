@@ -20,7 +20,6 @@ class SurveyForm extends Component {
 
     constructor(props) {
         super(props);
-        console.log(props.employee[0]);
         this.state = {
             employee: {}
         };
@@ -38,9 +37,9 @@ class SurveyForm extends Component {
             this.props.initialize({ position: employee.position, department: employee.department,
             site: employee.site, country: employee.country, supervisor: employee.supervisorID,
             firstName: employee.firstName , secondName: employee.secondName, lastName: employee.lastName,
-            email: employee.email });
+            email: employee.email, id: employee._id });
         }
-        return (<>  
+        return (<>  <Field name ="id" type="hidden" style={{ height: 0 }} component="input" />
                     <Field name="department" component={SurveySelect} className="browser-default" >
                         <option value="" disabled defaultValue>Select a Department:</option>
                         <option value="TELUS Business Solutions">TELUS Business Solutions</option>
