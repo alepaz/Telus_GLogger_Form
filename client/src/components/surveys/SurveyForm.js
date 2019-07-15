@@ -21,6 +21,7 @@ class SurveyForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: 0,
             employee: {}
         };
     }
@@ -33,12 +34,12 @@ class SurveyForm extends Component {
     }
 
     renderFields(employee) {
-        if(employee){
-            this.props.initialize({ position: employee.position, department: employee.department,
-            site: employee.site, country: employee.country, supervisor: employee.supervisorID,
-            firstName: employee.firstName , secondName: employee.secondName, lastName: employee.lastName,
-            email: employee.email, id: employee._id });
-        }
+        // if(employee){
+        //     this.props.initialize({ position: employee.position, department: employee.department,
+        //     site: employee.site, country: employee.country, supervisor: employee.supervisorID,
+        //     firstName: employee.firstName , secondName: employee.secondName, lastName: employee.lastName,
+        //     email: employee.email, id: employee._id });
+        // }
         return (<>  <Field name ="id" type="hidden" style={{ height: 0 }} component="input" />
                     <Field name="department" component={SurveySelect} className="browser-default" >
                         <option value="" disabled defaultValue>Select a Department:</option>
@@ -112,6 +113,13 @@ function mapStateToProps({ employee }) {
 //     form: 'surveyForm',
 //     destroyOnUnmount: false
 // })(SurveyForm));
+
+// const mapStateToProps = (state, props) => ({
+//     //initialValues: state.employee.position, // retrieve name from redux store 
+//     initialValues: {
+//         position: "test",
+//     } , // retrieve name from redux store 
+//   })
 
 export default connect(mapStateToProps, { fetchEmployee })(reduxForm({
     validate,
