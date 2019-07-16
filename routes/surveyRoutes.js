@@ -128,21 +128,7 @@ module.exports = app => {
         if(req.body.workday){
             const { workday, id } = req.body;
             try{        
-                const employee = new Employee({
-                    employeeID: workday,
-                    department,
-                    position,
-                    site,
-                    country,
-                    supervisorID: supervisor,
-                    firstName,
-                    secondName,
-                    lastName,
-                    email
-                });
-    
                 const filter = { _id: id };
-            
                 //Every process is going to be paused until the await process is not complete
                 await Employee.findOneAndUpdate(filter, 
                     { $set: {   "department" : department,
@@ -193,6 +179,25 @@ module.exports = app => {
                 console.log(err);
                 res.status(422).send(err);
             }
+        }
+    });
+
+    app.post('/api/delete_employee', async (req, res) => {
+        const { id } = req.body;
+        console.log(id);
+        try{        
+            const filter = { _id: id };
+            
+            //Every process is going to be paused until the await process is not complete
+            await Employee.deleteOne(filter
+                , function(err, doc){
+                if (err) return res.send(500, { error: err });
+                return res.send("succesfully deleted");
+            });
+        }catch(err){
+            //Unprocessable entity, which means bad data
+            console.log(err);
+            res.status(422).send(err);
         }
     });
 
