@@ -121,31 +121,74 @@ module.exports = app => {
     //app.post('/api/employees', requireLogin, async (req, res) => {
     app.post('/api/employees', async (req, res) => {
         const { department, position, site, country, supervisor, firstName, secondName, lastName, email } = req.body;
-        try{
+        if(req.body.workday){
+            const { workday, id } = req.body;
+            try{        
+                const employee = new Employee({
+                    employeeID: workday,
+                    department,
+                    position,
+                    site,
+                    country,
+                    supervisorID: supervisor,
+                    firstName,
+                    secondName,
+                    lastName,
+                    email
+                });
+    
+                const filter = { _id: id };
+            
+                //Every process is going to be paused until the await process is not complete
+                await Employee.findOneAndUpdate(filter, 
+                    { $set: {   "department" : department,
+                                "employeeID" : workday,
+                                "position" : position,
+                                "site" : site,
+                                "country" : country,
+                                "supervisorID" : supervisor,
+                                "firstName" : firstName,
+                                "secondName" : secondName,
+                                "lastName" : lastName,
+                                "email" : email
+                            } }
+                    , function(err, doc){
+                    if (err) return res.send(500, { error: err });
+                    return res.send("succesfully saved");
+                });
+                //Send update user
+                res.send(employee);
+            }catch(err){
+                //Unprocessable entity, which means bad data
+                console.log(err);
+                res.status(422).send(err);
+            }
+        }else{
 
-            const fakeWorkdayID = await getNextSequenceValue("employeeID");
-        
-            const employee = new Employee({
-                employeeID: fakeWorkdayID,
-                department,
-                position,
-                site,
-                country,
-                supervisorID: supervisor,
-                firstName,
-                secondName,
-                lastName,
-                email
-            });
-        
-            //Every process is going to be paused until the await process is not complete
-            await employee.save();
-            //Send update user
-            res.send(employee);
-        }catch(err){
-            //Unprocessable entity, which means bad data
-            console.log(err);
-            res.status(422).send(err);
+            try{
+                const fakeWorkdayID = await getNextSequenceValue("employeeID");
+                const employee = new Employee({
+                    employeeID: fakeWorkdayID,
+                    department,
+                    position,
+                    site,
+                    country,
+                    supervisorID: supervisor,
+                    firstName,
+                    secondName,
+                    lastName,
+                    email
+                });
+            
+                //Every process is going to be paused until the await process is not complete
+                await employee.save();
+                //Send update user
+                res.send(employee);
+            }catch(err){
+                //Unprocessable entity, which means bad data
+                console.log(err);
+                res.status(422).send(err);
+            }
         }
     });
 
