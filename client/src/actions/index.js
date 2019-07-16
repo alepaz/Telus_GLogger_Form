@@ -32,7 +32,7 @@ export const fetchEmployees = (offset) => async dispatch => {
 };
 
 export const countEmployees = () => async dispatch => {
-    const res = await axios.get('/api/employees/count');
+    const res = await axios.get('/api/count_employees/');
     dispatch({ type: COUNT_EMPLOYEES, payload: res.data });
 };
 

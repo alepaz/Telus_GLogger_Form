@@ -23,7 +23,7 @@ module.exports = app => {
         res.send(employees);
     });
 
-    app.get('/api/employees/count', requireLogin, async (req, res) => {
+    app.get('/api/count_employees/', requireLogin, async (req, res) => {
         const employees = await Employee.countDocuments({}, function (err, count) {
             if (err) console.log(err);
             console.log('employees', count);
@@ -33,9 +33,13 @@ module.exports = app => {
         res.send(employees.toString());
     });
 
-    app.get('/api/employees/top', requireLogin, async (req, res) => {
-        const employees = await Employee.find().sort({$natural:-1}).limit(10);
-        res.send(employees);
+    app.get('/api/top_employees/', requireLogin, async (req, res) => {
+        try{
+            const employees = await Employee.find().sort({$natural:-1}).limit(10);
+            res.send(employees);
+        }catch(err){
+            console.log(err);
+        }
     });
 
     app.get('/api/employees/csv', requireLogin, async (req, res) => {
