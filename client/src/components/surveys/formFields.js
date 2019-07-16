@@ -1,5 +1,6 @@
 export default [
     { name: 'id' },
+    { name: 'workday' },
     { label: 'Employee Department', name: 'department', noValueError: 'Provide the employee department' },
     { label: 'Employee Position', name: 'position', noValueError: 'Provide the employee position' },
     { label: 'Employee Site', name: 'site', noValueError: 'Provide the employee site' },

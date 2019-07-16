@@ -36,6 +36,7 @@ class SurveyEdit extends Component {
         let lastName = '';
         let email = '';
         let id = '';
+        let workday = '';
         try{
             position = employee[0].position;
             department = employee[0].department;
@@ -47,6 +48,7 @@ class SurveyEdit extends Component {
             lastName = employee[0].lastName;
             email = employee[0].email;
             id = employee[0]._id;
+            workday = employee[0].employeeID;
         }catch(err){
             
         }
@@ -58,7 +60,7 @@ class SurveyEdit extends Component {
         }
 
         return <SurveyForm 
-            initialValues={{id, position, department, site, country, supervisor, firstName, secondName, lastName, email }}
+            initialValues={{id, workday, position, department, site, country, supervisor, firstName, secondName, lastName, email }}
             employee={employee}
             onSurveySubmit={() => this.setState({ showFormReview: true })} 
         />;

@@ -41,6 +41,7 @@ class SurveyForm extends Component {
         //     email: employee.email, id: employee._id });
         // }
         return (<>  <Field name ="id" type="hidden" style={{ height: 0 }} component="input" />
+                    <Field name ="workday" type="hidden" style={{ height: 0 }} component="input" />
                     <Field name="department" component={SurveySelect} className="browser-default" >
                         <option value="" disabled defaultValue>Select a Department:</option>
                         <option value="TELUS Business Solutions">TELUS Business Solutions</option>
