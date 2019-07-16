@@ -42,7 +42,7 @@ module.exports = app => {
         }
     });
 
-    app.get('/api/employees/csv', requireLogin, async (req, res) => {
+    app.get('/api/csv_employees/', requireLogin, async (req, res) => {
         const filename   = "employees.csv";
         const employees = await Employee.find().lean();
         const employeesMaped = employees.map(x => {
