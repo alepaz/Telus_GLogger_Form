@@ -61,7 +61,7 @@ class SurveyList extends Component {
         return(
             <div>
                 
-            <div><Button href="/api/employees/csv">Export CSV</Button></div>
+            <div><Button href="/api/csv_employees/">Export CSV</Button></div>
             <h3 align="center">Employee List</h3>
 
             <table className="table table-striped" style={{ marginTop: 20 }}>
