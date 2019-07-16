@@ -37,7 +37,7 @@ export const countEmployees = () => async dispatch => {
 };
 
 export const fetchTopEmployees = () => async dispatch => {
-    const res = await axios.get('/api/employees/top');
+    const res = await axios.get('/api/top_employees/');
     dispatch({ type: FETCH_SURVEYS, payload: res.data });
 };
 
