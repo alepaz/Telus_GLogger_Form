@@ -182,12 +182,12 @@ module.exports = app => {
         }
     });
 
-    app.post('/api/delete_employee', async (req, res) => {
-        const { id } = req.body;
+    app.delete('/api/employees/:id', async (req, res) => {
+        const { id } = req.params;
         console.log(id);
         try{        
             const filter = { _id: id };
-            
+            console.log("delete employee", id);
             //Every process is going to be paused until the await process is not complete
             await Employee.deleteOne(filter
                 , function(err, doc){
