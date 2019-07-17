@@ -24,7 +24,7 @@ build:
 	
 start:
 	@echo "Starting containers..."
-	docker container run -d --name ${PROJECT}-container -p 3000:8080 ${PROJECT}-image:${LAST_VERSION}
+	docker container run -d --name ${PROJECT}-container -p 8081:8080 ${PROJECT}-image:${LAST_VERSION}
 
 deploy: build start
 
