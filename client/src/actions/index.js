@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_SURVEYS, COUNT_EMPLOYEES, FETCH_EMPLOYEE } from './types';
+import { FETCH_USER, FETCH_SURVEYS, COUNT_EMPLOYEES, FETCH_EMPLOYEE, DELETE_EMPLOYEE } from './types';
 
 //Action creator
 export const fetchUser = () =>  async (dispatch) => {
@@ -44,4 +44,9 @@ export const fetchTopEmployees = () => async dispatch => {
 export const fetchEmployee = (id) => async dispatch => {
     const res = await axios.get('/api/employees/'+id);
     dispatch({ type: FETCH_EMPLOYEE, payload: res.data });
+};
+
+export const deleteEmployee = (id) => async (dispatch) => {
+    const res = await axios.delete(`/api/employees/${id}`);
+    dispatch({ type: DELETE_EMPLOYEE, payload: res.data });
 };

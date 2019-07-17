@@ -4,6 +4,7 @@ import authReducer from './authReducer';
 import employeesReducer from './employeesReducer';
 import employeesTotalReducer from './employeesTotalReducer';
 import employeeReducer from './employeeReducer';
+import deleteEmployeeReducer from './deleteEmployeeReducer';
 
 export default combineReducers({
     //Reducers are assign to keys
@@ -11,5 +12,6 @@ export default combineReducers({
     form: reduxForm,
     employees: employeesReducer,
     totalEmployees: employeesTotalReducer,
-    employee: employeeReducer
+    employee: employeeReducer,
+    deleteEmployee: deleteEmployeeReducer,
 });
