@@ -13,6 +13,7 @@ const Employee = mongoose.model("employees");
 module.exports = app => {
   app.get("/api/employees/", requireLogin, async (req, res) => {
     const offset = req.query.offset ? req.query.offset : 0;
+    console.log("offset", offset);
     const employees = await Employee.find()
       .skip(offset)
       .limit(10);
