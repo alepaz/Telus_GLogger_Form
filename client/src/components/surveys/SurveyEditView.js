@@ -23,7 +23,6 @@ class SurveyList extends Component {
   componentDidMount() {
     this.props.fetchEmployees();
     this.props.countEmployees();
-    this.props.deleteEmployee();
   }
 
   handlePageClick = data => {
@@ -36,9 +35,9 @@ class SurveyList extends Component {
   };
 
   handleDeleteEmployee = id => {
-    console.log(id);
-    const result = this.props.deleteEmployee(id);
-    console.log(result);
+    const { offset } = this.state;
+    this.props.deleteEmployee(id);
+    this.props.fetchEmployees(offset);
   };
 
   renderSurveys() {
