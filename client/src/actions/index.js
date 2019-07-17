@@ -55,5 +55,5 @@ export const fetchEmployee = id => async dispatch => {
 
 export const deleteEmployee = id => async dispatch => {
   const res = await axios.delete(`/api/employees/${id}`);
-  dispatch({ type: DELETE_EMPLOYEE, payload: res.data });
+  dispatch({ type: DELETE_EMPLOYEE, payload: { id, response: res.data } });
 };

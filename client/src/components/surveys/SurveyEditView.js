@@ -37,7 +37,7 @@ class SurveyList extends Component {
   handleDeleteEmployee = id => {
     const { offset } = this.state;
     this.props.deleteEmployee(id);
-    this.props.fetchEmployees(offset);
+    // this.props.fetchEmployees(offset);
   };
 
   renderSurveys() {
