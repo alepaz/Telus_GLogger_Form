@@ -72,17 +72,17 @@ const connectMongoose = () => {
 connectMongoose();
 
 db.once('open', () => {
-  logger.info('Mongodb connection open...');
+  console.info('Mongodb connection open...');
 });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  logger.info(`Started on port ${PORT}`);
+  console.info(`Started on port ${PORT}`);
 });
 
 process.on('SIGINT', () => {
   db.close(() => {
-    logger.info('Mongoose default connection disconnected through app termination');
+    console.info('Mongoose default connection disconnected through app termination');
     process.exit();
   });
 });
