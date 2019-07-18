@@ -1,8 +1,8 @@
 FROM bitnami/mongodb:4.0-ol-7
 
 ENV MONGODB_USERNAME=is
-ENV MONGODB_PASSWORD=is_dev
-ENV MONGODB_DATABASE=glogger_form
+ENV MONGODB_PASSWORD=isdev
+ENV MONGODB_DATABASE=glform
 
 VOLUME /bitnami
 
