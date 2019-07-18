@@ -4,32 +4,45 @@ const { URL } = require("url");
 const mongoose = require("mongoose");
 const csv = require("csv-express");
 const requireLogin = require("../middlewares/requireLogin");
-const requireCredits = require("../middlewares/requireCredits");
-const Mailer = require("../services/Mailer");
-const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 const Counter = mongoose.model("counters");
 const Employee = mongoose.model("employees");
 
 module.exports = app => {
-  app.get("/api/employees/", requireLogin, async (req, res) => {
-    const offset = await req.query.offset ? req.query.offset : 0;
-    console.log("offest", offset);
+  //app.get("/api/employees/", requireLogin, async (req, res) => {
+  app.get("/api/employees/", async (req, res) => {
+    const offset = req.query.offset ? req.query.offset : 0;
+    const filter = req.query.filter;
+    if (filter) {
+      const output = await Employee.find(
+        {
+          $or: [
+            { firstName: { $regex: filter, $options: "i" } },
+            { secondName: { $regex: filter, $options: "i" } },
+            { lastName: { $regex: filter, $options: "i" } }
+          ]
+        },
+        function(err, person) {
+          if (err) return handleError(err);
+        }
+      );
+      res.send(output);
+      return;
+    }
     const employees = await Employee.find();
     const orderedEmployees = employees.sort(function(a, b) {
-        const nameA = a.employeeID.toUpperCase(); // ignore upper and lowercase
-        const nameB = b.employeeID.toUpperCase(); // ignore upper and lowercase
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        } // names must be equal
-        return 0;
+      const nameA = a.employeeID.toUpperCase(); // ignore upper and lowercase
+      const nameB = b.employeeID.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      } // names must be equal
+      return 0;
     });
-    const lastIndex = orderedEmployees.length - offset ;
-    const firstIndex = (lastIndex - 10) > 0 ? lastIndex - 10 : 0 ;   
+    const lastIndex = orderedEmployees.length - offset;
+    const firstIndex = lastIndex - 10 > 0 ? lastIndex - 10 : 0;
     const slideEmployees = await orderedEmployees.slice(firstIndex, lastIndex);
-    //console.log(slideEmployees);
     res.send(slideEmployees);
   });
 
@@ -54,7 +67,7 @@ module.exports = app => {
       const employees = await Employee.find()
         .sort({ employeeID: -1 })
         .limit(10);
-        const orderedEmployees = employees.sort(function(a, b) {
+      const orderedEmployees = employees.sort(function(a, b) {
         const nameA = a.employeeID.toUpperCase(); // ignore upper and lowercase
         const nameB = b.employeeID.toUpperCase(); // ignore upper and lowercase
         if (nameA < nameB) {
