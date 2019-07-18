@@ -21,8 +21,8 @@ class SurveyList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchEmployees();
     this.props.countEmployees();
+    this.props.fetchEmployees();
   }
 
   handlePageClick = data => {

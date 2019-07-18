@@ -12,12 +12,27 @@ const Employee = mongoose.model("employees");
 
 module.exports = app => {
   app.get("/api/employees/", requireLogin, async (req, res) => {
-    const offset = req.query.offset ? req.query.offset : 0;
-    console.log("offset", offset);
+    const offset = await req.query.offset ? req.query.offset : 0;
+    console.log("offest", offset);
     const employees = await Employee.find()
+    .sort({ employeeID: -1 })
       .skip(offset)
       .limit(10);
-    res.send(employees);
+    const orderedEmployees = employees.sort(function(a, b) {
+        const nameA = a.employeeID.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.employeeID.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        } // names must be equal
+        return 0;
+    });
+    
+    const slideEmployees = orderedEmployees.slice(offset, offset+10);
+    console.log(orderedEmployees);
+    res.send(slideEmployees);
   });
 
   app.get("/api/employees/:id", requireLogin, async (req, res) => {
@@ -41,7 +56,7 @@ module.exports = app => {
       const employees = await Employee.find()
         .sort({ employeeID: -1 })
         .limit(10);
-      const orderedEmployees = employees.sort(function(a, b) {
+        const orderedEmployees = employees.sort(function(a, b) {
         const nameA = a.employeeID.toUpperCase(); // ignore upper and lowercase
         const nameB = b.employeeID.toUpperCase(); // ignore upper and lowercase
         if (nameA < nameB) {

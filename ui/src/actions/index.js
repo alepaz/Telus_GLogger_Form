@@ -1,7 +1,8 @@
 import axios from "axios";
 import {
   FETCH_USER,
-  FETCH_SURVEYS,
+  FETCH_EMPLOYEES,
+  FETCH_LAST_EMPLOYEES,
   COUNT_EMPLOYEES,
   FETCH_EMPLOYEE,
   DELETE_EMPLOYEE
@@ -35,7 +36,7 @@ export const fetchEmployees = offset => async dispatch => {
     }
   });
   console.log("fetch response", res);
-  dispatch({ type: FETCH_SURVEYS, payload: res.data });
+  dispatch({ type: FETCH_EMPLOYEES, payload: res.data });
 };
 
 export const countEmployees = () => async dispatch => {
@@ -45,7 +46,7 @@ export const countEmployees = () => async dispatch => {
 
 export const fetchTopEmployees = () => async dispatch => {
   const res = await axios.get("/api/top_employees/");
-  dispatch({ type: FETCH_SURVEYS, payload: res.data });
+  dispatch({ type: FETCH_LAST_EMPLOYEES, payload: res.data });
 };
 
 export const fetchEmployee = id => async dispatch => {
