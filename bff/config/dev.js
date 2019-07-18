@@ -10,3 +10,4 @@ module.exports = {
     sendGridKey: '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',
     redirectDomain: 'http://localhost:3000'
 };
+
