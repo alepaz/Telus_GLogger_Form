@@ -12,12 +12,9 @@ const Employee = mongoose.model("employees");
 
 module.exports = app => {
   app.get("/api/employees/", requireLogin, async (req, res) => {
-    const offset = await req.query.offset ? req.query.offset : 0;
+    const offset = await req.query.offset ? req.query.offset -1 : 0;
     console.log("offest", offset);
-    const employees = await Employee.find()
-    .sort({ employeeID: -1 })
-      .skip(offset)
-      .limit(10);
+    const employees = await Employee.find();
     const orderedEmployees = employees.sort(function(a, b) {
         const nameA = a.employeeID.toUpperCase(); // ignore upper and lowercase
         const nameB = b.employeeID.toUpperCase(); // ignore upper and lowercase
@@ -29,9 +26,10 @@ module.exports = app => {
         } // names must be equal
         return 0;
     });
-    
-    const slideEmployees = orderedEmployees.slice(offset, offset+10);
-    console.log(orderedEmployees);
+    const lastIndex = orderedEmployees.length - offset ;
+    const firstIndex = (lastIndex - 10) > 0 ? lastIndex - 10 : 0 ;   
+    const slideEmployees = await orderedEmployees.slice(firstIndex, lastIndex);
+    //console.log(slideEmployees);
     res.send(slideEmployees);
   });
 
