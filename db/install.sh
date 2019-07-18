@@ -25,7 +25,7 @@ then
           docker container start db
         else
           echo "Creating container..."
-          docker run -d --name db -p 27017:27017 -v mongodb-data:/bitnami db
+          docker run --name db -p 27017:27017 -v mongodb-data:/bitnami db
         fi
       else 
         echo "Container already running"
