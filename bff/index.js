@@ -3,15 +3,14 @@ const express = require('express'); //Common js modules server side
 const mongoose = require('mongoose');   //Facilitate comunicate with mongodb
 const cookieSession = require('cookie-session');
 const passport = require('passport'); //We want to tell passport to handle cookies
-const keys = require('./config/keys');  //We require the file which is has the secret keys that are not commitment
+const keys = require('./config/keys'); //We require the file which is has the secret keys that are not commitment
+const mongooseOptions = require('./config/mongooseOptions') 
 const bodyParser = require('body-parser');
 require('./models/User');   //Verify order of require statements
 require('./models/Employee');
 require('./models/Counter');
 require('./services/passport'); //If you are not exporting anything, you can just use a require
 
-//attempt to connect to mongodb
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
 const app = express();
 //app is used to set up configuration that will listen for incoming requests that are being routed to the Express side
@@ -22,31 +21,68 @@ app.use(bodyParser.json());
 //To enable cookies and tell express to be aware
 app.use(
     cookieSession({
-        maxAge: 30 * 24 * 60 * 60 * 1000, //How long this cookie will be alive
-        keys: [keys.cookieKey]    //To encrypt the cookie
+      maxAge: 30 * 24 * 60 * 60 * 1000, //How long this cookie will be alive
+      keys: [keys.cookieKey]    //To encrypt the cookie
 
     })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-require('./routes/authRoutes')(app);
-require('./routes/billingRoutes')(app);
-require('./routes/surveyRoutes')(app);
-
-if (process.env.NODE_ENV === 'production') {
-    // Express will serve up production assets
-    // Like our main.js file or main.css file
-    app.use(express.static('client/build'));
-
-    // Express will serve up the index.html file
-    // If it doesn't recognize the route
-    const path = require('path');
-    app.get('*', (req, res) => {
+    );
+    
+    app.use(passport.initialize());
+    app.use(passport.session());
+    
+    require('./routes/authRoutes')(app);
+    require('./routes/billingRoutes')(app);
+    require('./routes/surveyRoutes')(app);
+    
+    if (process.env.NODE_ENV === 'production') {
+      // Express will serve up production assets
+      // Like our main.js file or main.css file
+      app.use(express.static('client/build'));
+      
+      // Express will serve up the index.html file
+      // If it doesn't recognize the route
+      const path = require('path');
+      app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    });
+      });
 }
 
+// database
+const db = mongoose.connection;
+let connectionRetries = 1;
+let reconnectionTimeout;
+
+const connectMongoose = () => {
+  try {
+    clearTimeout(reconnectionTimeout);
+    mongoose.connect(keys.mongoURI, mongooseOptions).then(
+      () => {},
+      err => {
+        console.error(`${connectionRetries} - Mongodb connection rejected at ${keys.mongoURI}. Retrying in 5 sec.`, err);
+        connectionRetries += 1;
+        mongoose.disconnect();
+        reconnectionTimeout = setTimeout(connectMongoose, 5000);
+      }
+    );
+  } catch (err) {
+    console.error('Error trying to connect to mongodb', err);
+  }
+};
+
+connectMongoose();
+
+db.once('open', () => {
+  logger.info('Mongodb connection open...');
+});
+
 const PORT = process.env.PORT || 5000;
-app.listen(PORT);
+app.listen(PORT, () => {
+  logger.info(`Started on port ${PORT}`);
+});
+
+process.on('SIGINT', () => {
+  db.close(() => {
+    logger.info('Mongoose default connection disconnected through app termination');
+    process.exit();
+  });
+});
