@@ -12,7 +12,7 @@ const Employee = mongoose.model("employees");
 
 module.exports = app => {
   app.get("/api/employees/", requireLogin, async (req, res) => {
-    const offset = await req.query.offset ? req.query.offset -1 : 0;
+    const offset = await req.query.offset ? req.query.offset : 0;
     console.log("offest", offset);
     const employees = await Employee.find();
     const orderedEmployees = employees.sort(function(a, b) {
