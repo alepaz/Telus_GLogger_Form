@@ -5,4 +5,4 @@ RUN npm ci --only=production --verbose
 COPY . ./
 
 EXPOSE 5000
-ENTRYPOINT ["npm","start"];
+ENTRYPOINT ["npm","heroku-postbuild"];
