@@ -18,6 +18,11 @@ const app = express();
 //Midleware for body parser, the incoming request for Stripe
 app.use(bodyParser.json());
 
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 //To enable cookies and tell express to be aware
 app.use(
     cookieSession({
