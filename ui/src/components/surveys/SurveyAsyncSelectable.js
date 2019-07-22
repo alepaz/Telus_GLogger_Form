@@ -82,8 +82,9 @@ SurveyAsyncSelectable.propTypes = {
 };
 
 SurveyAsyncSelectable.defaultProps = {
-  onChange: value => console.log(value),
-  value: ""
+  value: '',
+  onChange: value => SurveyAsyncSelectable.defaultProps.value = value,
+  name: "supervisor"
 };
 
 export default SurveyAsyncSelectable;

@@ -91,7 +91,7 @@ class SurveyForm extends Component {
           </option>
           <option value="India">India</option>
         </Field>
-        <Field
+        {/* <Field
           name="supervisor"
           component={SurveySelect}
           className="browser-default"
@@ -101,7 +101,7 @@ class SurveyForm extends Component {
           </option>
           <option value="Supervisor 1">Supervisor 1</option>
           <option value="Supervisor 2">Supervisor 2</option>
-        </Field>
+        </Field> */}
         <Field
           label="Supervisor"
           name="supervisor"
