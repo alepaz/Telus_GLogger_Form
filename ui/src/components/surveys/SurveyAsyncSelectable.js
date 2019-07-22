@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import AsyncSelect from "react-select/async";
 import debounce from "debounce-promise";
+import { change, formValueSelector } from 'redux-form';
+import { connect } from 'react-redux';
 import employeeService from "../../services/employeeService";
 import { reduxForm, change } from 'redux-form';
 
@@ -23,6 +25,7 @@ function SurveyAsyncSelectable({
   onChange,
   service,
   value
+//},{ dispatch }) {
 }) {
   const getOptions = async input => {
     if (!input || input.length < 3) {
@@ -41,8 +44,9 @@ function SurveyAsyncSelectable({
   };
   const handleChange = async option => {
     if (option) {
+      const valueSelector = formValueSelector('surveyForm')
       const { value: optionValue } = option;
-      change('surveyForm', 'supervisor', optionValue);
+      dispatch(change('surveyForm', 'supervisor', optionValue));
       onChange(optionValue);
     }
   };
@@ -61,7 +65,7 @@ function SurveyAsyncSelectable({
             isClearable
             className="browser-default"
             loadOptions={debounce(getOptions, 300)}
-            name={name}
+            name={`selectable-${name}`}
             onChange={debounce(handleChange, 300)}
             value={{ label: value, value }}
           />
@@ -87,9 +91,23 @@ SurveyAsyncSelectable.defaultProps = {
   value: '',
   onChange: value => {
                       SurveyAsyncSelectable.defaultProps.value = value;
+                      change('surveyForm', 'supervisor', value);
                       //change("supervisor", value);
                     },
   name: "supervisor"
 };
 
-export default SurveyAsyncSelectable;
+// const mapStateToProps = (state) => ({
+//   // ...
+// });
+
+const mapDispatchToProps = (dispatch)  => {
+  return { supervisor: () => dispatch(SurveyAsyncSelectable()) }
+};
+
+// SurveyAsyncSelectable = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(SurveyAsyncSelectable);
+
+export default connect(null, mapDispatchToProps)(SurveyAsyncSelectable);
