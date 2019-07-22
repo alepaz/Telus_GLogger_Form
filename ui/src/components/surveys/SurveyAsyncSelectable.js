@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import AsyncSelect from "react-select/async";
 import debounce from "debounce-promise";
 import employeeService from "../../services/employeeService";
+import { reduxForm, change } from 'redux-form';
 
 // mapping example
 // r => ({
@@ -41,6 +42,7 @@ function SurveyAsyncSelectable({
   const handleChange = async option => {
     if (option) {
       const { value: optionValue } = option;
+      change('surveyForm', 'supervisor', optionValue);
       onChange(optionValue);
     }
   };
@@ -59,7 +61,7 @@ function SurveyAsyncSelectable({
             isClearable
             className="browser-default"
             loadOptions={debounce(getOptions, 300)}
-            name={`selectableInput-${name}`}
+            name={name}
             onChange={debounce(handleChange, 300)}
             value={{ label: value, value }}
           />
@@ -83,7 +85,10 @@ SurveyAsyncSelectable.propTypes = {
 
 SurveyAsyncSelectable.defaultProps = {
   value: '',
-  onChange: value => SurveyAsyncSelectable.defaultProps.value = value,
+  onChange: value => {
+                      SurveyAsyncSelectable.defaultProps.value = value;
+                      //change("supervisor", value);
+                    },
   name: "supervisor"
 };
 

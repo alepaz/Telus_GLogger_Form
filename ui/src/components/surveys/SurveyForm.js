@@ -28,19 +28,9 @@ class SurveyForm extends Component {
   }
 
   componentDidMount() {
-    // const employee = this.props.employee[0] ? this.props.employee[0]: null ;
-    // this.props.initialize({ position: 'test' });
-    // console.log(this.props.employee[0]);
-    // this.setState({employee: employee });
   }
 
   renderFields(employee) {
-    // if(employee){
-    //     this.props.initialize({ position: employee.position, department: employee.department,
-    //     site: employee.site, country: employee.country, supervisor: employee.supervisorID,
-    //     firstName: employee.firstName , secondName: employee.secondName, lastName: employee.lastName,
-    //     email: employee.email, id: employee._id });
-    // }
     return (
       <>
         {" "}
