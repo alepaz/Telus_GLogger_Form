@@ -9,7 +9,7 @@ const Employee = mongoose.model("employees");
 
 module.exports = app => {
   //app.get("/api/employees/", requireLogin, async (req, res) => {
-  app.get("/api/employees/", async (req, res) => {
+  app.get("/api/employees/", requireLogin, async (req, res) => {
     const offset = req.query.offset ? req.query.offset : 0;
     const filter = req.query.filter;
     if (filter) {
