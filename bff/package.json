@@ -10,7 +10,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node index.js",
     "server": "nodemon index.js",
-    "client": "npm run start --prefix ./ui",
+    "client": "npm run start --prefix ../ui",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
