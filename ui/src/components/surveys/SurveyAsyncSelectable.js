@@ -2,10 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import AsyncSelect from "react-select/async";
 import debounce from "debounce-promise";
-import { change, formValueSelector } from 'redux-form';
+import { change, formValueSelector, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import employeeService from "../../services/employeeService";
-import { reduxForm, change } from 'redux-form';
 
 // mapping example
 // r => ({
