@@ -2,9 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import AsyncSelect from "react-select/async";
 import debounce from "debounce-promise";
-import { change, formValueSelector, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
-import employeeService from "../../services/employeeService";
 
 // mapping example
 // r => ({
@@ -21,10 +18,8 @@ function SurveyAsyncSelectable({
   mapping,
   meta: { touched, error },
   name,
-  onChange,
-  service,
-  value
-//},{ dispatch }) {
+  input: { onChange, value },
+  service
 }) {
   const getOptions = async input => {
     if (!input || input.length < 3) {
@@ -43,9 +38,10 @@ function SurveyAsyncSelectable({
   };
   const handleChange = async option => {
     if (option) {
-      const valueSelector = formValueSelector('surveyForm')
-      const { value: optionValue } = option;
-      dispatch(change('surveyForm', 'supervisor', optionValue));
+      const { value: optionValue } = option; 
+      // considering that RF cannot handle object with keys {value, label}
+      // you are going to need to filter resources by the selected value
+      // in order to display the correct label in the UI
       onChange(optionValue);
     }
   };
@@ -86,27 +82,4 @@ SurveyAsyncSelectable.propTypes = {
   value: PropTypes.string
 };
 
-SurveyAsyncSelectable.defaultProps = {
-  value: '',
-  onChange: value => {
-                      SurveyAsyncSelectable.defaultProps.value = value;
-                      change('surveyForm', 'supervisor', value);
-                      //change("supervisor", value);
-                    },
-  name: "supervisor"
-};
-
-// const mapStateToProps = (state) => ({
-//   // ...
-// });
-
-const mapDispatchToProps = (dispatch)  => {
-  return { supervisor: () => dispatch(SurveyAsyncSelectable()) }
-};
-
-// SurveyAsyncSelectable = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(SurveyAsyncSelectable);
-
-export default connect(null, mapDispatchToProps)(SurveyAsyncSelectable);
+export default SurveyAsyncSelectable;
