@@ -27,18 +27,24 @@ passport.use(
     },
         async (accessToken, refreshToken, profile, done) => {
             try {
-                //When we fetch the database, we use a asynchrous process which return a promise
-                const existingUser = await User.findOne({ googleID: profile.id })
-                if (existingUser) {
-                    //We already have a record with the given profile ID
-                    return done(null, existingUser); //First argument it's an air object
-                    //Air object: Communicates back to a passport that maybe something went wrong, but if we find the user everything is fine
+
+                if(profile._json.hd === "telusinternational.com" || profile._json.hd === "voxpro.ie"){
+                    //When we fetch the database, we use a asynchrous process which return a promise
+                    const existingUser = await User.findOne({ googleID: profile.id })
+                    if (existingUser) {
+                        //We already have a record with the given profile ID
+                        return done(null, existingUser); //First argument it's an air object
+                        //Air object: Communicates back to a passport that maybe something went wrong, but if we find the user everything is fine
+                    }
+                    //We don't have a user record with this ID, make a new record
+                    const user = await new User({ googleID: profile.id, name: profile.displayName }).save()
+                    done(null, user);
+                    //every operation to db is asynchrous
+                }else{
+                    // fail        
+                    done(new Error("Invalid host domain"));
                 }
-                //We don't have a user record with this ID, make a new record
-                const user = await new User({ googleID: profile.id, name: profile.displayName }).save()
-                done(null, user);
-                //every operation to db is asynchrous
-                
+
             } catch (error) {
                 console.log(error);
             }
