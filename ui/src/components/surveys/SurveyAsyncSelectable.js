@@ -59,10 +59,11 @@ function SurveyAsyncSelectable({
             isClearable
             className="browser-default"
             loadOptions={debounce(getOptions, 300)}
-            name={`selectable-${name}`}
+            name={name}
             onChange={debounce(handleChange, 300)}
             value={{ label: value, value }}
             {...rest}
+            onBlur={() => rest.onBlur(value)}
           />
           <div className="red-text" style={{ marginBottom: "10px" }}>
             {touched && error ? error : null}
@@ -78,8 +79,13 @@ SurveyAsyncSelectable.propTypes = {
   mapping: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
   service: PropTypes.func.isRequired, // it returns a Promise
   value: PropTypes.string
+};
+
+SurveyAsyncSelectable.defaultProps = {
+  name: "supervisor",
 };
 
 export default SurveyAsyncSelectable;
