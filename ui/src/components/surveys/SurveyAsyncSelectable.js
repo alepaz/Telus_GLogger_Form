@@ -42,6 +42,8 @@ function SurveyAsyncSelectable({
       // you are going to need to filter resources by the selected value
       // in order to display the correct label in the UI
       onChange(optionValue);
+    }else{
+      onChange("");
     }
   };
 
