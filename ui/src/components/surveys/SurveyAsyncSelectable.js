@@ -13,12 +13,11 @@ import debounce from "debounce-promise";
 // employeeService.getEmployees(params)
 
 function SurveyAsyncSelectable({
-  input: field,
   label,
   mapping,
   meta: { touched, error },
   name,
-  input: { onChange, value },
+  input: { onChange, value, ...rest },
   service
 }) {
   const getOptions = async input => {
@@ -38,7 +37,7 @@ function SurveyAsyncSelectable({
   };
   const handleChange = async option => {
     if (option) {
-      const { value: optionValue } = option; 
+      const { value: optionValue } = option;
       // considering that RF cannot handle object with keys {value, label}
       // you are going to need to filter resources by the selected value
       // in order to display the correct label in the UI
@@ -63,6 +62,7 @@ function SurveyAsyncSelectable({
             name={`selectable-${name}`}
             onChange={debounce(handleChange, 300)}
             value={{ label: value, value }}
+            {...rest}
           />
           <div className="red-text" style={{ marginBottom: "10px" }}>
             {touched && error ? error : null}
