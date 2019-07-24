@@ -12,7 +12,7 @@ module.exports = (app) => {
     //Route handle for google oauth success (callback)
     app.get(
         '/auth/google/callback',
-        passport.authenticate('google'),      //Passport strategy -google oauth20- will handle the information received
+        passport.authenticate('google', { failureRedirect: '/failure' }),      //Passport strategy -google oauth20- will handle the information received
         (req, res) => { //Where is going to be sent after the passport authenticate
             res.redirect('/employees');
         }

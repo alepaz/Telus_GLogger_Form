@@ -41,12 +41,16 @@ passport.use(
                     done(null, user);
                     //every operation to db is asynchrous
                 }else{
-                    // fail        
-                    done(new Error("Invalid host domain"));
+                    // fail
+                    // console.log("I've entered so please wait for it");
+                    // return done(new Error("Invalid host domain"));
+                    done();
                 }
 
             } catch (error) {
+                // const user = await new User({ googleID: profile.id, name: profile.displayName }).save()
                 console.log(error);
+                // return done(error, user);
             }
         })
 ); //We need to tell passport how to use GoogleStrategy, GoogleStrategy needs a configuration
