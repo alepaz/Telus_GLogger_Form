@@ -1,0 +1,8 @@
+.telusPurpleCSS {
+    background-color: #4B286D;
+    color: white !important;
+  }
+
+.pagination li.telusPurpleCSS a{
+    color: white !important;
+}
