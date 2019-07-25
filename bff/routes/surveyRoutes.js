@@ -147,7 +147,7 @@ module.exports = app => {
     //It's supoosed to be a increment of 1, but idk why it's trigger again in the console.log(doc)
     const sequenceDocument = await Counter.findOneAndUpdate(
       { _id: sequenceName },
-      { $inc: { sequence_value: 1 } },
+      { $inc: { sequence_value: 0.5 } },
       { new: true },
       (err, doc) => {
         if (err) {
