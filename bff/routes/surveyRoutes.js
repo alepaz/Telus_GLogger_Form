@@ -46,6 +46,22 @@ module.exports = app => {
     res.send(slideEmployees);
   });
 
+  app.get("/api/isSupervisor/:id",  async (req, res) => {
+    try{
+    const id = req.params.id ? req.params.id : 0;
+    //We retrieve the employee 
+    const employee = await Employee.find({ _id: id });
+    //We get his Workday ID, it must have a value
+    const workday = employee[0]['employeeID'];
+    //We look if has subordinates
+    const subordinates = await Employee.find({ supervisorID : workday });
+    res.send(subordinates);
+  }catch(err){
+    console.log(err);
+    res.send("Error");
+  }
+  });
+
   app.get("/api/employees/:id", requireLogin, async (req, res) => {
     const id = req.params.id ? req.params.id : 0;
     const employees = await Employee.find({ _id: id });
