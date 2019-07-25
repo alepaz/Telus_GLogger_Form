@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { fetchEmployees, countEmployees, deleteEmployee } from "../../actions";
 import Button from "@tds/core-button-link";
 import Heading from '@tds/core-heading'
-import { colorAccessibleGreen, colorTelusPurple } from "@tds/core-colours";
+import { colorTelusPurple } from "@tds/core-colours";
 import '../../css/styles.css'; // Import regular stylesheet
 
 class SurveyList extends Component {

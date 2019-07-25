@@ -4,32 +4,48 @@ import React from 'react';
 import { connect } from 'react-redux';
 import formFiels from './formFields';
 import { withRouter } from 'react-router-dom';
+import Button from "@tds/core-button";
+import Heading from '@tds/core-heading'
 import * as actions from '../../actions';
 
 const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
     const reviewFields = _.map(formFiels, ({ name, label }) => {
-        return (
-            <div key={name}>
-                <label>{label}</label>
-                <div>{formValues[name]}</div>
-            </div>
-        );
+        if(formValues[name]){
+            return (
+                <div key={name} className="row">
+                    <label className="input-field col s6">
+                        <Heading level="h4" tag="h3">
+                            {label}
+                        </Heading>
+                    </label>
+                    <div className="input-field col s6">{formValues[name]}</div>
+                </div>
+            );
+        }
     });
 
     return (
-        <div>
-            <h5> Please confirm your entries</h5>
+        <div style={{paddingTop:5}}>
+            <Heading level="h2" tag="h3">
+                Please confirm your entries
+            </Heading>            
+            <h5> </h5>
             {reviewFields}
-            <button className='yellow white-text darken-3 btn-flat' onClick={onCancel}>
-                Back
-            </button>
-            <button 
-                onClick={() => submitSurvey(formValues, history)}
-                className="green btn-flat right white-text"
-            >
-                Insert User
+            <div className="row">
+            <div className="input-field col s6">
+                <Button onClick={onCancel} variant="secondary">
+                  Cancel
+                </Button>
+            </div>
+            <div className="input-field col s6 right-align">
+              <Button 
+              onClick={() => submitSurvey(formValues, history)}
+              >
+                Save Data
                 <i className="material-icons right">email</i>
-            </button>
+              </Button>
+            </div>
+          </div>
         </div>
     );
 };
