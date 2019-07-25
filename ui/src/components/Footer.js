@@ -28,7 +28,7 @@ class Footer extends Component {
             <div className="footer-copyright" style={{backgroundColor:colorShark}}>
               <div className="container">
               Developed by Telus International TICA
-              <a class="grey-text text-lighten-4 right" href="https://www.telusinternational.com/">© {date.getFullYear()} Telus International</a>
+              <a className="grey-text text-lighten-4 right" href="https://www.telusinternational.com/">© {date.getFullYear()} Telus International</a>
               </div>
             </div>
           </footer>

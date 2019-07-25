@@ -4,6 +4,7 @@ import ReactPaginate from "react-paginate";
 import PropTypes from "prop-types";
 import { fetchEmployees, countEmployees, deleteEmployee } from "../../actions";
 import Button from "@tds/core-button-link";
+import Heading from '@tds/core-heading'
 import { colorAccessibleGreen, colorTelusPurple } from "@tds/core-colours";
 
 class SurveyList extends Component {
@@ -35,7 +36,7 @@ class SurveyList extends Component {
   };
 
   handleDeleteEmployee = id => {
-    const { offset } = this.state;
+    // const { offset } = this.state;
     this.props.deleteEmployee(id);
     // this.props.fetchEmployees(offset);
   };
@@ -44,30 +45,35 @@ class SurveyList extends Component {
     return this.props.employees.reverse().map(employee => {
       return (
         <tr key={employee._id}>
+          <td>{employee.employeeID}</td>
           <td>
             {employee.firstName} {employee.lastName}
           </td>
           <td>{employee.site}</td>
-          <td>{employee.employeeID}</td>
           <td>{employee.position}</td>
           {/*<td>{employee.department}</td>*/}
           <td>{employee.email.replace(/telusinternational.com/, "...")}</td>
           <td>
-            <Button
+          <a className="waves-effect waves-light btn" 
+              href={"/employees/edit/" + employee._id}
+              style={{backgroundColor:colorTelusPurple}}>Edit</a>
+            {/* <Button
               variant="secondary"
               href={"/employees/edit/" + employee._id}
             >
               Edit
-            </Button>
+            </Button> */}
           </td>
           <td>
-            {/* <button onClick={this.handleDeleteEmployee} className="btn btn-danger">Delete</button> */}
-            <Button
+            <button onClick={() => this.handleDeleteEmployee(employee._id)} 
+                    className="btn btn-danger"
+                    style={{backgroundColor:colorTelusPurple}}>Delete</button>
+            {/* <Button
               onClick={() => this.handleDeleteEmployee(employee._id)}
               variant="secondary"
             >
               Delete
-            </Button>
+            </Button> */}
           </td>
         </tr>
       );
@@ -76,22 +82,55 @@ class SurveyList extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <Button href="/api/csv_employees/">Export CSV</Button>
+      <div style={{ marginTop: 10 }}>
+        <div className="row">
+          <div className="col s2">
+            <Button href="/employees/new/" className="right-align">
+              Add Employee
+            </Button>
+          </div>
+          <div className="col s2 offset-s1">
+            <Button href="/api/csv_employees/">Export CSV</Button>
+          </div>
         </div>
-        <h3 align="center">Employee List</h3>
+        <Heading level="h2" tag="h3">
+          Employees List.
+        </Heading>
 
         <table className="table table-striped" style={{ marginTop: 20 }}>
           <thead>
             <tr>
-              <th>Employee ID</th>
-              <th>Employee</th>
-              <th>Site</th>
-              <th>Position</th>
+              <th>
+                <Heading level="h4" tag="h3">
+                  Employee ID
+                </Heading>
+              </th>
+              <th>
+                <Heading level="h4" tag="h3">
+                  Employee Name
+                </Heading>
+              </th>
+              <th>
+                <Heading level="h4" tag="h3">
+                  Site
+                </Heading>                
+              </th>
+              <th>
+                <Heading level="h4" tag="h3">
+                  Position
+                </Heading>                 
+              </th>
               {/*<th>Position</th>*/}
-              <th>Email</th>
-              <th colSpan="2">Action</th>
+              <th>
+                <Heading level="h4" tag="h3">
+                  Email
+                </Heading>
+              </th>
+              <th colSpan="2">
+              <Heading level="h4" tag="h3">
+                  Action
+                </Heading>
+              </th>
             </tr>
           </thead>
           <tbody>{this.renderSurveys()}</tbody>
