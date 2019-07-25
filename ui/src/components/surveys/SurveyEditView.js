@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactPaginate from "react-paginate";
 import PropTypes from "prop-types";
-import { fetchEmployees, countEmployees, deleteEmployee } from "../../actions";
+import Axios from 'axios';
+import Swal from 'sweetalert2';
 import Button from "@tds/core-button-link";
-import Heading from '@tds/core-heading'
+import Heading from '@tds/core-heading';
 import { colorTelusPurple } from "@tds/core-colours";
+import { fetchEmployees, countEmployees, deleteEmployee } from "../../actions";
 import '../../css/styles.css'; // Import regular stylesheet
 
 class SurveyList extends Component {
@@ -36,9 +38,25 @@ class SurveyList extends Component {
     });
   };
 
-  handleDeleteEmployee = id => {
+  handleDeleteEmployee = async (id) => {
     // const { offset } = this.state;
-    this.props.deleteEmployee(id);
+    
+      const response = await Axios.get(`/api/is_supervisor/${id}`);
+
+      if(response.data.length){
+        Swal.fire({
+          type: 'error',
+          title: 'Supervisor',
+          text: 'This employee has a relation as a supervisor with another employee.',
+        })
+      }else{
+        this.props.deleteEmployee(id);
+        Swal.fire({
+          type: 'success',
+          title: 'The employee has been removed',
+          showConfirmButton: false
+        })
+      }
     // this.props.fetchEmployees(offset);
   };
 

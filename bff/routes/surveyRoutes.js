@@ -46,20 +46,22 @@ module.exports = app => {
     res.send(slideEmployees);
   });
 
-  app.get("/api/isSupervisor/:id",  async (req, res) => {
-    try{
-    const id = req.params.id ? req.params.id : 0;
-    //We retrieve the employee 
-    const employee = await Employee.find({ _id: id });
-    //We get his Workday ID, it must have a value
-    const workday = employee[0]['employeeID'];
-    //We look if has subordinates
-    const subordinates = await Employee.find({ supervisorID : workday });
-    res.send(subordinates);
-  }catch(err){
-    console.log(err);
-    res.send("Error");
-  }
+  app.get("/api/is_supervisor/:id", async (req, res) => {
+    try {
+      const id = req.params.id ? req.params.id : 0;
+      //We retrieve the employee
+      const employee = await Employee.find({ _id: id });
+      console.log(employee);
+      //We get his Workday ID, it must have a value
+      const workday = employee[0]["employeeID"];
+      //We look if has subordinates
+      const subordinates = await Employee.find({ supervisorID: workday });
+      console.log(subordinates);
+      res.send(subordinates);
+    } catch (err) {
+      console.log(err);
+      res.send("Error");
+    }
   });
 
   app.get("/api/employees/:id", requireLogin, async (req, res) => {
@@ -147,38 +149,6 @@ module.exports = app => {
     );
     return sequenceDocument.sequence_value;
   }
-
-  app.post("/api/employees/webhooks", (req, res) => {
-    const p = new Path("/api/employees/:surveyId/:choice");
-    //console.log(req.body);
-    _.chain(req.body)
-      .map(({ email, url }) => {
-        const match = p.test(new URL(url).pathname);
-        if (match) {
-          return { email, surveyId: match.surveyId, choice: match.choice };
-        }
-      })
-      .compact()
-      .uniqBy("email", "surveyId")
-      .each(({ surveyId, email, choice }) => {
-        Survey.updateOne(
-          {
-            _id: surveyId,
-            recipients: {
-              $elemMatch: { email: email, responded: false }
-            }
-          },
-          {
-            $inc: { [choice]: 1 },
-            $set: { "recipients.$.responded": true },
-            lastResponded: new Date()
-          }
-        ).exec();
-      })
-      .value();
-
-    res.send({});
-  });
 
   //app.post('/api/employees', requireLogin, async (req, res) => {
   app.post("/api/employees", async (req, res) => {

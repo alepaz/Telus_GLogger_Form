@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { colorAccessibleGreen, colorTelusPurple } from '@tds/core-colours'
+import { colorTelusPurple } from '@tds/core-colours'
 
 class Header extends Component {
     renderContent() {

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Box from '@tds/core-box';
 import Button from '@tds/core-button';
 import DisplayHeading from '@tds/core-display-heading';
-import Paragraph from '@tds/core-paragraph';
 import bunnyImage from '../images/angora-bunny.png'
 
 
