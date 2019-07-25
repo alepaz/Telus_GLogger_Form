@@ -12,6 +12,7 @@ module.exports = app => {
   app.get("/api/employees/", requireLogin, async (req, res) => {
     const offset = req.query.offset ? req.query.offset : 0;
     const filter = req.query.filter;
+    const email = req.query.email;
     if (filter) {
       const output = await Employee.find(
         {
@@ -28,6 +29,14 @@ module.exports = app => {
       res.send(output);
       return;
     }
+
+    if (email) {
+      const output = await Employee.find({ email: email });
+      console.log(output);
+      res.send(output);
+      return;
+    }
+
     const employees = await Employee.find();
     const orderedEmployees = employees.sort(function(a, b) {
       const nameA = a.employeeID.toUpperCase(); // ignore upper and lowercase
@@ -46,7 +55,7 @@ module.exports = app => {
     res.send(slideEmployees);
   });
 
-  app.get("/api/is_supervisor/:id", async (req, res) => {
+  app.get("/api/is_supervisor/:id", requireLogin, async (req, res) => {
     try {
       const id = req.params.id ? req.params.id : 0;
       //We retrieve the employee
@@ -151,7 +160,7 @@ module.exports = app => {
   }
 
   //app.post('/api/employees', requireLogin, async (req, res) => {
-  app.post("/api/employees", async (req, res) => {
+  app.post("/api/employees", requireLogin, async (req, res) => {
     const {
       department,
       position,
@@ -224,7 +233,7 @@ module.exports = app => {
     }
   });
 
-  app.delete("/api/employees/:id", async (req, res) => {
+  app.delete("/api/employees/:id", requireLogin, async (req, res) => {
     const { id } = req.params;
     console.log(id);
     try {
@@ -242,7 +251,7 @@ module.exports = app => {
     }
   });
 
-  app.put("/api/employees", async (req, res) => {
+  app.put("/api/employees", requireLogin, async (req, res) => {
     const {
       department,
       position,
