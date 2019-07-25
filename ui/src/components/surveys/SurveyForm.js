@@ -12,6 +12,7 @@ import validateEmails from "../../utils/validateEmails";
 import formFields from "./formFields";
 import SurveyAsyncSelectable from "./SurveyAsyncSelectable";
 import employeeService from "../../services/employeeService";
+import Button from '@tds/core-button'
 
 const email = value =>
   value && !/^[A-Z0-9._%+-]+@telusinternational.com$/i.test(value)
@@ -46,41 +47,49 @@ class SurveyForm extends Component {
           style={{ height: 0 }}
           component="input"
         />
-        <Field
-          name="department"
-          component={SurveySelect}
-          className="browser-default"
-        >
-          <option value="" disabled defaultValue>
-            Select a Department:
-          </option>
-          <option value="TELUS Business Solutions">
-            TELUS Business Solutions
-          </option>
-        </Field>
-        <Field
-          key="position"
-          component={SurveyField}
-          type="text"
-          label="Employee Position"
-          name="position"
-        />
-        <Field name="site" component={SurveySelect} className="browser-default">
-          <option value="" disabled defaultValue>
-            Select a Site:
-          </option>
-          <option value="India Temporal">India Temporal</option>
-        </Field>
-        <Field
-          name="country"
-          component={SurveySelect}
-          className="browser-default"
-        >
-          <option value="" disabled defaultValue>
-            Select a Country:
-          </option>
-          <option value="India">India</option>
-        </Field>
+        <div className="input-field col s6">
+          <Field
+            name="department"
+            component={SurveySelect}
+            className="browser-default"
+          >
+            <option value="" disabled defaultValue>
+              Select a Department:
+            </option>
+            <option value="TELUS Business Solutions">
+              TELUS Business Solutions
+            </option>
+          </Field>
+        </div>
+        <div className="input-field col s6">
+          <Field
+            key="position"
+            component={SurveyField}
+            type="text"
+            label="Employee Position"
+            name="position"
+          />
+        </div>
+        <div className="input-field col s6">
+          <Field
+            name="country"
+            component={SurveySelect}
+            className="browser-default"
+          >
+            <option value="" disabled defaultValue>
+              Select a Country:
+            </option>
+            <option value="India">India</option>
+          </Field>
+        </div>
+        <div className="input-field col s6">
+          <Field name="site" component={SurveySelect} className="browser-default">
+            <option value="" disabled defaultValue>
+              Select a Site:
+            </option>
+            <option value="India Temporal">India Temporal</option>
+          </Field>
+        </div>
         {/* <Field
           name="supervisor"
           component={SurveySelect}
@@ -92,8 +101,9 @@ class SurveyForm extends Component {
           <option value="Supervisor 1">Supervisor 1</option>
           <option value="Supervisor 2">Supervisor 2</option>
         </Field> */}
+        <div className="input-field col s12">
         <Field
-          label="Supervisor"
+          label="Supervisor *optional"
           name="supervisor"
           component={SurveyAsyncSelectable}
           className="browser-default"
@@ -103,6 +113,8 @@ class SurveyForm extends Component {
             label: `${e.firstName} ${e.secondName} ${e.lastName}`
           })}
         />
+        </div>
+        <div className="input-field col s6">
         <Field
           key="firstName"
           component={SurveyField}
@@ -110,6 +122,8 @@ class SurveyForm extends Component {
           label="Employee First Name"
           name="firstName"
         />
+        </div>
+        <div className="input-field col s6">
         <Field
           key="secondName"
           component={SurveyField}
@@ -117,6 +131,8 @@ class SurveyForm extends Component {
           label="Employee Second Name"
           name="secondName"
         />
+        </div>
+        <div className="input-field col s6">
         <Field
           key="lastName"
           component={SurveyField}
@@ -124,6 +140,8 @@ class SurveyForm extends Component {
           label="Employee Last Name"
           name="lastName"
         />
+        </div>
+        <div className="input-field col s6">
         <Field
           key="email"
           component={SurveyField}
@@ -132,6 +150,7 @@ class SurveyForm extends Component {
           name="email"
           validate={email}
         />
+        </div>
       </>
     );
   }
@@ -140,15 +159,16 @@ class SurveyForm extends Component {
     const employee = this.props.employee[0] ? this.props.employee[0] : false;
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
+        <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)} className="row">
           {this.renderFields(employee)}
-          <Link to="/employees" className="red btn-flat white-text">
-            Cancel
-          </Link>
-          <button type="submit" className="teal btn-flat right white-text">
-            Next
-            <i className="material-icons right">done</i>
-          </button>
+          <div className="input-field col s6">
+          <a href="/employees">
+            <Button href="/employees" variant="secondary">Cancel</Button>
+          </a>
+          </div>
+          <div className="input-field col s6 right-align">
+            <Button type="submit">Next<i className="material-icons right">done</i></Button>
+          </div>
         </form>
       </div>
     );
