@@ -6,7 +6,7 @@ import Axios from 'axios';
 import Swal from 'sweetalert2';
 import Button from "@tds/core-button-link";
 import Heading from '@tds/core-heading';
-import { colorTelusPurple } from "@tds/core-colours";
+import { colorTelusPurple, colorAccessibleGreen } from "@tds/core-colours";
 import { fetchEmployees, countEmployees, deleteEmployee } from "../../actions";
 import '../../css/styles.css'; // Import regular stylesheet
 
@@ -47,15 +47,37 @@ class SurveyList extends Component {
         Swal.fire({
           type: 'error',
           title: 'Supervisor',
+          confirmButtonColor: colorAccessibleGreen,
           text: 'This employee has a relation as a supervisor with another employee.',
         })
       }else{
-        this.props.deleteEmployee(id);
+
         Swal.fire({
-          type: 'success',
-          title: 'The employee has been removed',
-          showConfirmButton: false
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: colorAccessibleGreen,
+          cancelButtonColor: colorTelusPurple,
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          
+          if (result.value) {
+            this.props.deleteEmployee(id);
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'The employee has been removed.',
+              confirmButtonColor: colorAccessibleGreen, 
+              type: 'success'
+            })
+          }
         })
+        //this.props.deleteEmployee(id);
+        // Swal.fire({
+        //   type: 'success',
+        //   title: 'The employee has been removed',
+        //   showConfirmButton: false
+        // })
       }
     // this.props.fetchEmployees(offset);
   };
