@@ -148,13 +148,7 @@ module.exports = app => {
     const sequenceDocument = await Counter.findOneAndUpdate(
       { _id: sequenceName },
       { $inc: { sequence_value: 1 } },
-      { new: true },
-      (err, doc) => {
-        if (err) {
-          console.log("Something wrong when updating data!");
-        }
-        console.log(doc);
-      }
+      { new: true }
     );
     return sequenceDocument.sequence_value;
   }
