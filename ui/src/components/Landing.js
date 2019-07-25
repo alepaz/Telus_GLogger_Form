@@ -3,7 +3,6 @@ import '@tds/core-css-reset/dist/index.css';
 import Box from '@tds/core-box';
 import Button from '@tds/core-button';
 import DisplayHeading from '@tds/core-display-heading';
-import Paragraph from '@tds/core-paragraph';
 import lionImage from '../images/Lion_Looking_at_Laptop.jpg'
 
 const Landing = () => {

@@ -1,8 +1,17 @@
 .telusPurpleCSS {
-    background-color: #4B286D;
-    color: white !important;
-  }
+  background-color: #4b286d;
+  color: #fff !important;
+}
 
-.pagination li.telusPurpleCSS a{
-    color: white !important;
+.telusPurpleCSS :hover {
+  background-color: #fff;
+  color: #4b286d !important;
+}
+
+.pagination li.telusPurpleCSS a {
+  color: #fff !important;
+}
+
+.waves-effect.waves-brown .waves-ripple {
+  background-color: rgba(75, 40, 109, 0.65);
 }

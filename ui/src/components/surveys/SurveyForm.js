@@ -3,7 +3,6 @@ import _ from "lodash";
 import React, { Component } from "react";
 //Redux form has access to the redux store
 import { reduxForm, Field } from "redux-form";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import SurveyField from "./SurveyField";
 import SurveySelect from "./SurveySelect";
