@@ -34,6 +34,7 @@ const asyncValidate = async (values /*, dispatch */) => {
             confirmButtonColor: colorAccessibleGreen,
             text: "You cannot take an email that is already used"
           });
+          errors['email'] = 'That username is taken';
           throw { username: 'That username is taken' };
         }
       }
@@ -52,6 +53,7 @@ const asyncValidate = async (values /*, dispatch */) => {
         confirmButtonColor: colorAccessibleGreen,
         text: "You cannot take an email that is already used"
       });
+      errors['email'] = 'That username is taken';
       throw { username: 'That username is taken' };
     }
   }
