@@ -15,11 +15,6 @@ const Landing = () => {
         <a href="/auth/google"><Button>Login with Google</Button></a>
         
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <Paragraph>Developed by Telus International TICA.</Paragraph>
     </Box>
     )
 };
