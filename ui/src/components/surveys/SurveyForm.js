@@ -4,6 +4,7 @@ import React, { Component } from "react";
 //Redux form has access to the redux store
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
+import Button from "@tds/core-button";
 import SurveyField from "./SurveyField";
 import SurveySelect from "./SurveySelect";
 import { fetchEmployee } from "../../actions";
@@ -11,7 +12,7 @@ import validateEmails from "../../utils/validateEmails";
 import formFields from "./formFields";
 import SurveyAsyncSelectable from "./SurveyAsyncSelectable";
 import employeeService from "../../services/employeeService";
-import Button from "@tds/core-button";
+import asyncValidate from './asyncValidate';
 
 const email = value =>
   value && !/^[A-Z0-9._%+-]+@telusinternational.com$/i.test(value)
@@ -20,6 +21,7 @@ const email = value =>
 
 const namesFormat = value =>
   value && !/^[A-Z]+$/i.test(value) ? "Invalid name format" : undefined;
+
 
 class SurveyForm extends Component {
   constructor(props) {
@@ -99,17 +101,6 @@ class SurveyForm extends Component {
             </Field>
           </div>
         </div>
-        {/* <Field
-          name="supervisor"
-          component={SurveySelect}
-          className="browser-default"
-        >
-          <option value="" disabled defaultValue>
-            Select a Supervisor (Optional):
-          </option>
-          <option value="Supervisor 1">Supervisor 1</option>
-          <option value="Supervisor 2">Supervisor 2</option>
-        </Field> */}
         <div className="row">
           <div className="input-field col s12">
             <Field
@@ -214,6 +205,31 @@ function validate(values) {
     }
   });
 
+  // if(values.id){
+  //   //If employee has an ID, he is registered 
+  //   console.log("Employee ID", values['id']);
+  //   const employee = await Axios.get(`/api/employees/${values['id']}`);
+  //   //If employee email is different we must validate
+  //   console.log("Employee data:", employee.data);
+  //   if(employee.data.length){
+  //     if(employee.data[0].email.trim().toLowerCase() === values['email'].trim().toLowerCase() ){
+  //       console.log("Same email not worry");
+  //     }else{
+  //       //Lets verify if email is available
+  //       const email = await Axios.get(`/api/employees?email=${values['email']}`);
+  //       console.log("repeated email:", email);
+  //       if(email.length){
+  //         console.log("I've entered");
+  //         //Another person has this email
+  //         errors['email'] = "Email alredy register for other user";
+  //       }
+  //     }
+  //     console.log("Employee email:", employee.data[0].email);
+  //   }
+  // }
+  
+  // console.log("EMAIL -------",email);
+
   return errors;
 }
 
@@ -221,30 +237,15 @@ function mapStateToProps({ employee }) {
   return { employee };
 }
 
-// export default connect(state => ({
-//     initialValues: {
-//       position: 'some value here'
-//     }
-//   }))(reduxForm({
-//     validate,
-//     form: 'surveyForm',
-//     destroyOnUnmount: false
-// })(SurveyForm));
-
-// const mapStateToProps = (state, props) => ({
-//     //initialValues: state.employee.position, // retrieve name from redux store
-//     initialValues: {
-//         position: "test",
-//     } , // retrieve name from redux store
-//   })
-
 export default connect(
   mapStateToProps,
   { fetchEmployee }
 )(
   reduxForm({
     validate,
+    asyncValidate,
     form: "surveyForm",
+    asyncBlurFields: ['email'],
     destroyOnUnmount: false,
     enableReinitialize: true
   })(SurveyForm)
