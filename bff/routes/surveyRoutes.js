@@ -145,12 +145,16 @@ module.exports = app => {
 
   async function getNextSequenceValue(sequenceName) {
     //It's supoosed to be a increment of 1, but idk why it's trigger again in the console.log(doc)
-    const sequenceDocument = await Counter.findOneAndUpdate(
-      { _id: sequenceName },
-      { $inc: { sequence_value: 1 } },
-      { new: true }
-    );
-    return sequenceDocument.sequence_value;
+    try {
+      const sequenceDocument = await Counter.findOneAndUpdate(
+        { _id: sequenceName },
+        { $inc: { sequence_value: 1 } },
+        { new: true }
+      );
+      return sequenceDocument.sequence_value;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   //app.post('/api/employees', requireLogin, async (req, res) => {
