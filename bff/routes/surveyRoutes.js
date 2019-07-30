@@ -128,7 +128,7 @@ module.exports = app => {
         "Last Name": x.lastName,
         "Work Email": x.email,
         IsSupervisor: x.isSupervisor,
-        Status: x.status,
+        Status: x.status ? "Active" : x.status,
         "Cost Center Reference Id": x.costCenterID,
         "Workers Functional Area": x.functionalArea
       };
