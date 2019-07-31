@@ -42,7 +42,7 @@ const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
               onClick={() => submitSurvey(formValues, history)}
               >
                 Save Data
-                <i className="material-icons right">email</i>
+                {/* <i className="material-icons right">email</i> */}
               </Button>
             </div>
           </div>

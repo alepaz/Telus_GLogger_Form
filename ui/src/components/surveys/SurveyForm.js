@@ -183,7 +183,8 @@ class SurveyForm extends Component {
             </div>
             <div className="input-field col s6 right-align">
               <Button type="submit">
-                Next<i className="material-icons right">done</i>
+                Next
+                {/* <i className="material-icons right">done</i> */}
               </Button>
             </div>
           </div>
