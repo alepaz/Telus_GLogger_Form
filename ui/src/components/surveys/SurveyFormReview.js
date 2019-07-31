@@ -10,7 +10,7 @@ import * as actions from '../../actions';
 
 const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
     const reviewFields = _.map(formFiels, ({ name, label }) => {
-        if(formValues[name]){
+        if(formValues[name] && name !== "id"){
             return (
                 <div key={name} className="row">
                     <label className="input-field col s6">
