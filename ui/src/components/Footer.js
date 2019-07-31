@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { colorShark, colorShuttleGrey } from '@tds/core-colours'
-import logoImage from '../images/logo.jpg'
+import logoImage from '../images/logo.png'
 
 class Footer extends Component {
     render() {
