@@ -13,6 +13,7 @@ import Landing from './Landing';
 import Dashboard from './Dashboard';
 import Failure from './Failure';
 import Policies from './Policies';
+import NotFound from './NotFound';
 import SurveyNew from './surveys/SurveyNew';
 import SurveyEdit from './surveys/SurveyEdit';
 import SurveyDelete from './surveys/SurveyDelete';
@@ -43,6 +44,7 @@ class App extends Component {
                         <Route path="/employees/view" render={() => <SurveyManage perPage={10} />} />
                         <Route exact path="/policies" component={Policies} />
                         <Route exact path="/failure" component={Failure} />
+                        {/* <Route path="*" component={NotFound} /> */}
                         <Footer />
                     </div>
                 </BrowserRouter>
