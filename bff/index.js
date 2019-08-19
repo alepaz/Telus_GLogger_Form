@@ -86,7 +86,7 @@ db.once('open', () => {
   console.info('Mongodb connection open...');
 });
 
-const PORT = process.env.PORT || 20000;
+const PORT = process.env.PORT || 5000;
 
 https.createServer(options, app).listen(PORT);
 
