@@ -6,11 +6,17 @@ const passport = require('passport'); //We want to tell passport to handle cooki
 const keys = require('./config/keys'); //We require the file which is has the secret keys that are not commitment
 const mongooseOptions = require('./config/mongooseOptions') 
 const bodyParser = require('body-parser');
+const https = require('https');
+const fs = require('fs');
 require('./models/User');   //Verify order of require statements
 require('./models/Employee');
 require('./models/Counter');
 require('./services/passport'); //If you are not exporting anything, you can just use a require
 
+const options = {
+  key  : fs.readFileSync(__dirname + '/SSL/wildcard.telusinternational.com.key'),
+  cert : fs.readFileSync(__dirname + '/SSL/star_telusinternational_com.crt')
+};
 
 const app = express();
 //app is used to set up configuration that will listen for incoming requests that are being routed to the Express side
@@ -80,10 +86,9 @@ db.once('open', () => {
   console.info('Mongodb connection open...');
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.info(`Started on port ${PORT}`);
-});
+const PORT = process.env.PORT || 20000;
+
+https.createServer(options, app).listen(PORT);
 
 process.on('SIGINT', () => {
   db.close(() => {

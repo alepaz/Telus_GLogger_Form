@@ -7,7 +7,7 @@ export default [
     { label: 'Employee Country', name: 'country', noValueError: 'Select the employee\'s country' },
     { label: 'Employee Supervisor', name: 'supervisor' },
     { label: 'Employee First name', name: 'firstName', noValueError: 'Provide the first name of the employee' },
-    { label: 'Employee Second name', name: 'secondName', noValueError: 'Provide the second name of the employee' },
+    { label: 'Employee Second name', name: 'secondName' },
     { label: 'Employee last name', name: 'lastName', noValueError: 'Provide the last name of the employee' },
     { label: 'Employee email', name: 'email', noValueError: 'Provide the email of the employee' }
 ];
